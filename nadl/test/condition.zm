@@ -11,151 +11,29 @@ enum CondEntropy {
     EN_LOW
 };
 
-enum CondPause {
-    NOPAUSE,
-    PAUSE
-};
-
 enum CondLang {
     LANG_L1,
     LANG_L2
 };
 
-enum CondTestStims {
-    STIM_FAMILIAR,
-    STIM_NEW
-};
-
-enum CondList {
-    LIST_A,
-    LIST_B
-};
-
 CondEntropy     chosen_entropy;
-CondPause       chosen_pause;
 CondLang        chosen_language;
-CondTestStims   chosen_test_stim;
-CondList        chosen_list;
 
 void init_conditions_from_test_group(TestGroup group) {
-    if (
-        group == lo_pause_l1_fam_a    ||
-        group == lo_pause_l2_fam_a    ||
-        group == lo_nopause_l1_fam_a  ||
-        group == lo_nopause_l2_fam_a  ||
-        group == lo_pause_l1_new_a    ||
-        group == lo_pause_l2_new_a    ||
-        group == lo_nopause_l1_new_a  ||
-        group == lo_nopause_l2_new_a  ||
-        group == lo_pause_l1_fam_b    ||
-        group == lo_pause_l2_fam_b    ||
-        group == lo_nopause_l1_fam_b  ||
-        group == lo_nopause_l2_fam_b  ||
-        group == lo_pause_l1_new_b    ||
-        group == lo_pause_l2_new_b    ||
-        group == lo_nopause_l1_new_b  ||
-        group == lo_nopause_l2_new_b
-       )
+    if (group == lo_l1 || group == lo_l2)
         chosen_entropy = EN_LOW;
     else
         chosen_entropy = EN_HIGH;
 
-    if (
-        group == lo_pause_l1_fam_a ||
-        group == lo_pause_l2_fam_a ||
-        group == hi_pause_l1_fam_a ||
-        group == hi_pause_l2_fam_a ||
-        group == lo_pause_l1_new_a ||
-        group == lo_pause_l2_new_a ||
-        group == hi_pause_l1_new_a ||
-        group == hi_pause_l2_new_a ||
-        group == lo_pause_l1_fam_b ||
-        group == lo_pause_l2_fam_b ||
-        group == hi_pause_l1_fam_b ||
-        group == hi_pause_l2_fam_b ||
-        group == lo_pause_l1_new_b ||
-        group == lo_pause_l2_new_b ||
-        group == hi_pause_l1_new_b ||
-        group == hi_pause_l2_new_b
-       )
-        chosen_pause = PAUSE;
-    else
-        chosen_pause = NOPAUSE;
-    
-    if (
-        group == lo_pause_l1_fam_a    ||
-        group == lo_nopause_l1_fam_a  ||
-        group == hi_pause_l1_fam_a    ||
-        group == hi_nopause_l1_fam_a  ||
-        group == lo_pause_l1_new_a    ||
-        group == lo_nopause_l1_new_a  ||
-        group == hi_pause_l1_new_a    ||
-        group == hi_nopause_l1_new_a  ||
-        group == lo_pause_l1_fam_b    ||
-        group == lo_nopause_l1_fam_b  ||
-        group == hi_pause_l1_fam_b    ||
-        group == hi_nopause_l1_fam_b  ||
-        group == lo_pause_l1_new_b    ||
-        group == lo_nopause_l1_new_b  ||
-        group == hi_pause_l1_new_b    ||
-        group == hi_nopause_l1_new_b
-       )
+    if (group == lo_l1 || group == hi_l1)
         chosen_language = LANG_L1;
     else
         chosen_language = LANG_L2;
-
-    if (
-        group == lo_pause_l1_new_a    ||
-        group == lo_pause_l2_new_a    ||
-        group == lo_nopause_l1_new_a  ||
-        group == lo_nopause_l2_new_a  ||
-        group == hi_pause_l1_new_a    ||
-        group == hi_pause_l2_new_a    ||
-        group == hi_nopause_l1_new_a  ||
-        group == hi_nopause_l2_new_a  ||
-        group == lo_pause_l1_new_b    ||
-        group == lo_pause_l2_new_b    ||
-        group == lo_nopause_l1_new_b  ||
-        group == lo_nopause_l2_new_b  ||
-        group == hi_pause_l1_new_b    ||
-        group == hi_pause_l2_new_b    ||
-        group == hi_nopause_l1_new_b  ||
-        group == hi_nopause_l2_new_b
-        )
-        chosen_test_stim = STIM_NEW;
-    else
-        chosen_test_stim = STIM_FAMILIAR;
-
-    if (
-        group == lo_pause_l1_fam_a ||
-        group == lo_pause_l2_fam_a ||
-        group == lo_nopause_l1_fam_a ||
-        group == lo_nopause_l2_fam_a ||
-        group == hi_pause_l1_fam_a ||
-        group == hi_pause_l2_fam_a ||
-        group == hi_nopause_l1_fam_a ||
-        group == hi_nopause_l2_fam_a ||
-        group == lo_pause_l1_new_a ||
-        group == lo_pause_l2_new_a ||
-        group == lo_nopause_l1_new_a ||
-        group == lo_nopause_l2_new_a ||
-        group == hi_pause_l1_new_a ||
-        group == hi_pause_l2_new_a ||
-        group == hi_nopause_l1_new_a ||
-        group == hi_nopause_l2_new_a
-       )
-        chosen_list = LIST_A;
-    else
-        chosen_list = LIST_B;
 }
 
 
 void print_chosen_conditions(TestGroup group) {
-    println("chosen_group = " + group);
     println("chosen_entropy = " + chosen_entropy);
-    println("chosen_pause = " + chosen_pause);
     println("chosen_language = " + chosen_language);
-    println("chosen_test_stim = " + chosen_test_stim);
-    println("chosen_list = " + chosen_list);
 }
 

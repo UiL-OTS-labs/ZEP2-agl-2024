@@ -1,0 +1,117 @@
+
+//requires 2.5;
+
+import std_windows1a;
+import global_texts;
+//import std_texts_en;
+import std_entry_page1;
+import std_exit_page1;
+import std_pause_page;
+import std_blank_page;
+
+// We've chozen the mouse as primary response option
+// import io_beexybox;
+
+import test::defs;
+import test::condition;
+import test::task;
+import test::shuffle;
+
+
+Experiment experiment
+{
+    on_event:entry()
+    {
+        test::init_conditions_from_test_group(selected_group);
+        if (have_flag("short")) { // for testing purposes
+            test::NUM_TRAININGS_ITEMS = 12;
+        }
+        test::TOT_TRAININGS_ITEMS = test::NUM_TRAININGS_ITEMS * 3;
+        test::prepare_training_items();
+
+        string message = "Unable to randomize according constraints";
+
+        if (test::shuffle_test_items(test::training_items1) != OK)
+            terminate message;
+        if (test::shuffle_test_items(test::training_items2) != OK)
+            terminate message;
+        if (test::shuffle_test_items(test::training_items3) != OK)
+            terminate message;
+
+        test::prepare_test_lists();
+
+        if (have_flag("print-items") ||
+            have_flag("print-test-items") ||
+            have_flag("print-train-items")
+            ) 
+            println("selected_group = " + selected_group);
+
+        /* optionally print the training items */
+        if (have_flag("print-items") || have_flag("print-train-items")) {
+            println("Printing TrainItems");
+            println("trainitems1");
+            test::print_train_items(test::training_items1, true);
+            println("trainitems2");
+            test::print_train_items(test::training_items2, false);
+            println("trainitems3");
+            test::print_train_items(test::training_items3, false);
+            println();
+        }
+        
+        /* optionally print the test items */
+        if (have_flag("print-items") || have_flag("print-test-items")) {
+            println("Printing TestItems");
+            println("testitems1");
+            test::print_test_items(test::test_items1, true);
+            println("testitems2");
+            test::print_test_items(test::test_items2, false);
+            println("testitems3");
+            test::print_test_items(test::test_items3, false);
+            println();
+        }
+
+        show_test_windows();
+    }
+
+
+    on_event:message()
+    {
+        // On Ctrl+F4 jump unconditionally to the thank-you part.
+        if (message_sender == control && message_arg == SYS_STOP)
+        {
+            control.mark_experiment_aborted();
+            thankyou.enter();
+        }
+    }
+
+
+    Part welcome
+    {
+        on_event:entry()
+        {
+            entry_page.set_text(WELCOME_TEXT);
+            entry_page.action(this, 1s);
+        }
+    }
+
+
+    Part phase1
+    {
+        on_event:entry()
+        {
+            test::action(this);
+        }
+    }
+
+
+    Part thankyou
+    {
+        on_event:entry()
+        {
+            control.end_experiment();   // Check-in session.
+
+            exit_page.set_text(THANK_YOU_TEXT);
+            exit_page.action(this, 10s);
+        }
+    }
+}

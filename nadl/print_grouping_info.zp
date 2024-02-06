@@ -1,0 +1,29 @@
+
+import std_defs;
+import std_options;
+import std_windows1;
+import std_database;
+import grouping;
+import test::condition;
+
+init() {
+    int i = 0;
+    TestGroup group;
+    int num_test_groups = group.num_enumerators;
+
+    println("this program test whether the right condtions are chosen for all test groups\n");
+
+    println("num groups = " + num_test_groups +"\n\n");
+    while(i < num_test_groups) {
+        group = cast<TestGroup> (i);
+        test::init_conditions_from_test_group(group);
+        test::print_chosen_conditions(group);
+        println();
+        i++;
+    }
+
+    terminate;
+}
+
+Experiment experiment {}
+

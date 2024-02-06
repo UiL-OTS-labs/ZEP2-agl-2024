@@ -1,0 +1,67 @@
+/******************************************************************************\
+FILE:           grouping.zm
+AUTHOR:         Theo Veenker <theo.veenker@beexy.nl>
+ADAPTED BY:     -
+ 
+DESCRIPTION:
+ 
+Defines groups and handles participant group assignment.
+ 
+ 
+HISTORY:
+2015-03-10 Adapted
+ 
+\******************************************************************************/
+ 
+ 
+// Symbolic definition of groups.
+enum TestGroup
+{
+    // List A in test phase
+    lo_pause_l1_fam_a,        // low entropy interstimulus interval 167 ms language l2
+    lo_pause_l2_fam_a,        // low entropy interstimulus interval 167 ms language l1
+    lo_nopause_l1_fam_a,      // low entropy interstimulus interval 83 ms language l1
+    lo_nopause_l2_fam_a,      // low entropy interstimulus interval 83 ms language l2
+    hi_pause_l1_fam_a,        // high entropy interstimulus interval 167 ms language l1
+    hi_pause_l2_fam_a,        // high entropy interstimulus interval 167 ms language l2
+    hi_nopause_l1_fam_a,      // high entropy interstimulus interval 83 ms language l1
+    hi_nopause_l2_fam_a,      // high entropy interstimulus interval 83 ms language l2
+    // Groups below are like above, but they get new stimuli in the testfase that transfer
+    // to the trained words.
+    lo_pause_l1_new_a,
+    lo_pause_l2_new_a,
+    lo_nopause_l1_new_a,
+    lo_nopause_l2_new_a,
+    hi_pause_l1_new_a,
+    hi_pause_l2_new_a,
+    hi_nopause_l1_new_a,
+    hi_nopause_l2_new_a,
+
+    // List b in test phase
+    lo_pause_l1_fam_b,        // low entropy interstimulus interval 167 ms language l2
+    lo_pause_l2_fam_b,        // low entropy interstimulus interval 167 ms language l1
+    lo_nopause_l1_fam_b,      // low entropy interstimulus interval 83 ms language l1
+    lo_nopause_l2_fam_b,      // low entropy interstimulus interval 83 ms language l2
+    hi_pause_l1_fam_b,        // high entropy interstimulus interval 167 ms language l1
+    hi_pause_l2_fam_b,        // high entropy interstimulus interval 167 ms language l2
+    hi_nopause_l1_fam_b,      // high entropy interstimulus interval 83 ms language l1
+    hi_nopause_l2_fam_b,      // high entropy interstimulus interval 83 ms language l2
+    // Groups below are like above, but they get new stimuli in the testfase that transfer
+    // to the trained words.
+    lo_pause_l1_new_b,
+    lo_pause_l2_new_b,
+    lo_nopause_l1_new_b,
+    lo_nopause_l2_new_b,
+    hi_pause_l1_new_b,
+    hi_pause_l2_new_b,
+    hi_nopause_l1_new_b,
+    hi_nopause_l2_new_b,
+}
+ 
+ 
+// Assigns participant to a group.
+int assign_participant_to_group()
+{
+    // Assign to first (i.e default) group.
+    return select_group_default();
+}

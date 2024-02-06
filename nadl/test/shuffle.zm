@@ -1,0 +1,65 @@
+
+import stimuli;
+
+/*
+ * An sequence of stimuli is considered correct when no
+ * subsequent stimuli are the same.
+ *
+ * Returns -1 to indicate the order is allright or the index of the item that
+ * violates the order
+ */
+int check_violating_item(TrainItem[] array) {
+    int i = 1;
+    while (i < array.size) {
+        TrainItem i0 = array[i-1];
+        TrainItem i1 = array[i];
+        if (i0.sndfn == i1.sndfn)
+            return i;
+        i++;
+    }
+    return -1;
+}
+
+void swap_test_items(TrainItem[] input, int i, int j) {
+    TrainItem temp = input[i];
+    input[i] = input[j];
+    input[j] = temp;
+}
+
+void fix_violating_item(TrainItem[] input, int n) {
+    TrainItem violation = input[n];
+    int rand = random(0, input.size);
+    // Make sure that we swap the item with a item that fixes the order
+    while (rand == n ||
+           input[rand].sndfn == violation.sndfn) {
+        rand = random(0, input.size);
+    }
+    swap_test_items(input, n, rand);
+}
+
+/*
+ * Shuffles test_items table 
+ */
+int shuffle_test_items(TrainItem[] input, int max_tries=1000)
+{
+    input.shuffle(0, -1);
+    int ntries = 0;
+    while (ntries < max_tries) {
+        input.shuffle(0, -1);
+        ntries++;
+        int violating = check_violating_item(input);
+        while (violating >= 0) {
+            fix_violating_item(input, violating);
+            violating = check_violating_item(input);
+        }
+        if (violating < 0)
+            break;
+        println("Oops no shuffle " + ntries);
+    }
+
+    if (check_violating_item(input) >= 0)
+        return ERROR;
+
+    return OK;
+}
+

@@ -1,0 +1,51 @@
+
+const string PRE_TRAIN_INSTRUCTION = 
+	"In dit eerste deel van het onderzoek krijg je een buitenaardse taal te horen!\n\n"
+	"Er zijn in totaal drie fases (3 minuten/fase). Tijdens elke fase hoor je "
+	"klankenreeksen die representatief zijn voor deze taal.\n\n"
+	"Na elke fase volgt een korte test: je krijgt enkele klankenreeksen te horen "
+	"en het is aan jou om aan te geven of deze klankenreeksen mogelijk zijn in de "
+	"taal die je net hoorde. Nadere instructies zullen op het scherm te zien zijn.\n\n"
+	"Elke test is anders.\n\n"
+	"Als je klaar bent om te luisteren, klik dan op <b>start</b> om "
+    "verder te gaan.";
+
+const string PRE_TRAIN_INSTRUCTION_SHORT = 
+    "Je gaat nu verder met het luisteren naar klankenreeksen uit de buitenaardse taal.\n"
+    "Druk op <b>start</b> om verder te gaan.";
+
+const string TRAIN_PROMPT = "Luister naar de buitenaardse klankenreeksen.";
+
+const string PRE_TEST_INSTRUCTION = 
+    "Je gaat nu een aantal vragen beantwoorden.\n\n"
+    "Je krijgt twee klankenreeksen te horen. Selecteer de klankenreeks "
+    "waarvan het waarschijnlijker is dat deze uit de buitenaardse taal komt "
+    "die je net hoorde.\n\n"
+    "Denk niet te lang na. Vertrouw op je intuïtie en reageer vlot (na "
+    "het horen van de klankenreeksen).\n\n"
+    "Druk op <b>start</b> om verder te gaan.";
+
+const string PRE_TEST_INSTRUCTION_NEW = 
+    "Je gaat nu een aantal vragen beantwoorden.\n\n"
+    "Je krijgt twee klankenreeksen te horen. Selecteer de klankenreeks "
+    "waarvan het waarschijnlijker is dat deze uit de buitenaardse taal komt "
+    "die je net hoorde.\n\n"
+    "Niet alle klanken in deze test zijn voorgekomen in de taal die je net "
+    "hoorde, maar je kunt nog steeds de klankenreeks selecteren die het meest "
+    "waarschijnlijk uit deze taal komt.\n\n"
+    "Denk niet te lang na. Vertrouw op je intuïtie en reageer vlot (na "
+    "het horen van de klankenreeksen).\n\n"
+    "Druk op <b>start</b> om verder te gaan.";
+
+const string PRE_TEST_INSTRUCTION_SHORT = 
+    "Je gaat nu weer een aantal vragen beantwoorden.\n"
+    "Druk op <b>start</b> om verder te gaan.";
+
+const string TEST_QUESTION = 
+    "Van welke klankenreeks is het meer waarschijnlijk dat deze uit de buitenaardse taal komt?\n\n"
+    "Kies de eerste of de tweede klankenreeks door op de corresponderende toets te drukken.";
+
+const string    CONFIDENCE_QUESTION             = 
+    "Hoe zeker ben je van je keuze op een schaal van 1 to 6?\n"
+    "1 = Onzeker, 6 = Zeker";
+

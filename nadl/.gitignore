@@ -1,0 +1,8 @@
+
+# ignore database folder
+db/
+
+# vim temporary files
+*.sw[op]
+
+*.csv

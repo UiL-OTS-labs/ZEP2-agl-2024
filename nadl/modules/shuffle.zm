@@ -1,0 +1,23 @@
+/******************************************************************************\
+FILE:           shuffle.zm
+AUTHOR:         Theo Veenker <theo.veenker@beexy.nl>
+ADAPTED BY:     Silvia Radulescu <sil.radulescu@gmail.com>
+
+DESCRIPTION:
+
+Item table shuffling functions.
+
+
+HISTORY:
+2015-03-10 Adapted
+
+\******************************************************************************/
+
+
+// Shuffles test_items table (no restrictions on item order).
+int shuffle_test_items()
+{
+    test_items.shuffle(0, -1);
+
+    return OK;
+}

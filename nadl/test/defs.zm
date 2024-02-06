@@ -1,0 +1,51 @@
+/******************************************************************************\
+FILE:           defs.zm
+AUTHOR:         Theo Veenker <theo.veenker@beexy.nl>
+ADAPTED BY:     -
+
+DESCRIPTION:
+
+Defines experiment settings such as for trial timing.
+
+
+HISTORY:
+2011-10-25 TV   Created.
+
+\******************************************************************************/
+
+
+// Duration of the interval between two trials.
+const dur       PAUSE_INTERTRIAL_INTERVAL       = 250ms;
+const dur       NOPAUSE_INTERTRIAL_INTERVAL     = 83ms;
+
+// Duration between test trials
+const dur       INTERTRIAL_INTERVAL             = 1s;
+
+// Duration of the fixation symbol presentation.
+const dur       FIXATION_DURATION               = 0ms;
+
+// Duration of the feedback presentation.
+const dur       FEEDBACK_DURATION               = 1000ms;
+
+// Duration before playing the first stimuli in a test
+const dur	    QUESTION_ALONE_DURATION	        = 3000ms;
+
+// Duration of the response interval. A value of 0ms means there is no
+// timeout.
+// const dur       RESPONSE_DURATION               = 2000ms;       // auto-paced
+const dur       RESPONSE_DURATION               = 0ms;          // self-paced
+
+const int       NUM_TRAINING_BLOCKS             = 3;
+
+
+// The number of training items in one of the trainings blocks
+int             NUM_TRAININGS_ITEMS             = 144;
+
+// The total number of trainings items
+int             TOT_TRAININGS_ITEMS             = 0; //NUM_TRAININGS_ITEMS * 3;
+
+// The total number of test items
+const int       TOT_TEST_ITEMS                  = 12;
+
+const int       NUM_TEST_TRAINING_REPETITIONS   = 3;
+

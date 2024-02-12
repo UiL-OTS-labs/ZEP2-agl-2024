@@ -24,10 +24,7 @@ record TestOutput
     int            nth_rep;        // the nth repetiton of this stimulus
     
     CondEntropy    entropy;        // Entropy of this item (of the entire list).
-    CondPause      pause;          // pause vs nopause
     CondLang       language;       // Language of this item (of the entire list).
-    CondTestStims  test_stims;     // Test stimuli new vs familiar   
-    CondList       list_ab;        // Whether the participant has gotten list a or b
 
     TestGroup      grp;
     string         fn1;            // stimulus string sound filename // or training stimulus
@@ -59,10 +56,7 @@ void test_output_append(TestOutput data)
     expdb.set_trial_data_int_field("nth_rep", data.nth_rep);
 
     expdb.set_trial_data_enum_field("entropy", string(data.entropy));
-    expdb.set_trial_data_enum_field("pause", string(data.pause));
     expdb.set_trial_data_enum_field("language", string(data.language));
-    expdb.set_trial_data_enum_field("test_stims", string(data.test_stims));
-    expdb.set_trial_data_enum_field("list", string(data.list_ab));
     expdb.set_trial_data_enum_field("group", string(data.grp));
 
     expdb.set_trial_data_string_field("fn1", data.fn1);

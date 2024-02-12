@@ -17,7 +17,7 @@ enum ResponseType {
 record TrainItem
 {
     int         id;             // item id
-    int         nth_rep;        // the number of repetition.
+    int         block;          // the block of the stimuli 1, 2 or 3
     CondEntropy entropy;        // entropy of item
     CondLang    language;       // L1 or L2
     string      sndfn;          // stimulus word sound filename
@@ -31,7 +31,7 @@ void print_train_items(TrainItem[] items, bool header) {
     while (i < items.size) {
         TrainItem it = items[i];
         println("" + it.id + " "
-                   + it.nth_rep + " "
+                   + it.block + " "
                    + it.entropy + " "
                    + it.language + " "
                    + it.sndfn
@@ -53,142 +53,202 @@ TrainItem[] training_items3 = {};
 // Training items of language 1 with low entropy
 TrainItem[] items_low_l1 =
 {
-    { 1, 0, EN_LOW, LANG_L1, "rak_bap_toef"},
-    { 2, 0, EN_LOW, LANG_L1, "rak_ves_toef"},
-    { 3, 0, EN_LOW, LANG_L1, "sot_bap_jik"},
-    { 4, 0, EN_LOW, LANG_L1, "sot_ves_jik"},
-    { 5, 0, EN_LOW, LANG_L1, "tep_bap_lut"},
-    { 6, 0, EN_LOW, LANG_L1, "tep_ves_lut"},
-    { 7, 0, EN_LOW, LANG_L1, "rak_huf_toef"},
-    { 8, 0, EN_LOW, LANG_L1, "rak_keg_toef"},
-    { 9, 0, EN_LOW, LANG_L1, "sot_huf_jik"},
-    {10, 0, EN_LOW, LANG_L1, "sot_keg_jik"},
-    {11, 0, EN_LOW, LANG_L1, "tep_huf_lut"},
-    {12, 0, EN_LOW, LANG_L1, "tep_keg_lut"},
+    {1 , 1, EN_LOW, LANG_L1, "naf_hog_tep"},
+    {2 , 1, EN_LOW, LANG_L1, "naf_nit_tep"},
+    {3 , 1, EN_LOW, LANG_L1, "naf_zuk_tep"},
+    {4 , 1, EN_LOW, LANG_L1, "wop_hog_bif"},
+    {5 , 1, EN_LOW, LANG_L1, "wop_nit_bif"},
+    {6 , 1, EN_LOW, LANG_L1, "wop_zuk_bif"},
+    {7 , 1, EN_LOW, LANG_L1, "bap_hog_lut"},
+    {8 , 1, EN_LOW, LANG_L1, "bap_nit_lut"},
+    {9 , 1, EN_LOW, LANG_L1, "bap_zuk_lut"},
+    {10, 1, EN_LOW, LANG_L1, "pem_hog_dos"},
+    {11, 1, EN_LOW, LANG_L1, "pem_nit_dos"},
+    {12, 1, EN_LOW, LANG_L1, "pem_zuk_dos"},
+    {13, 1, EN_LOW, LANG_L1, "pem_hog_dos"},
+    {14, 1, EN_LOW, LANG_L1, "pem_nit_dos"},
+    {15, 1, EN_LOW, LANG_L1, "pem_zuk_dos"},
+    {16, 1, EN_LOW, LANG_L1, "pem_hog_dos"},
+    {17, 1, EN_LOW, LANG_L1, "pem_nit_dos"},
+    {18, 1, EN_LOW, LANG_L1, "pem_zuk_dos"},
+    {19, 1, EN_LOW, LANG_L1, "naf_huf_tep"},
+    {20, 1, EN_LOW, LANG_L1, "naf_jal_tep"},
+    {21, 1, EN_LOW, LANG_L1, "naf_huf_tep"},
+    {22, 1, EN_LOW, LANG_L1, "naf_jal_tep"},
+    {23, 1, EN_LOW, LANG_L1, "naf_huf_tep"},
+    {24, 1, EN_LOW, LANG_L1, "naf_jal_tep"},
+    {25, 1, EN_LOW, LANG_L1, "wop_jik_bif"},
+    {26, 1, EN_LOW, LANG_L1, "wop_nup_bif"},
+    {27, 1, EN_LOW, LANG_L1, "wop_jik_bif"},
+    {28, 1, EN_LOW, LANG_L1, "wop_nup_bif"},
+    {29, 1, EN_LOW, LANG_L1, "wop_jik_bif"},
+    {30, 1, EN_LOW, LANG_L1, "wop_nup_bif"},
+    {31, 1, EN_LOW, LANG_L1, "bap_rak_lut"},
+    {32, 1, EN_LOW, LANG_L1, "bap_toef_lut"},
+    {33, 1, EN_LOW, LANG_L1, "bap_rak_lut"},
+    {34, 1, EN_LOW, LANG_L1, "bap_toef_lut"},
+    {35, 1, EN_LOW, LANG_L1, "bap_rak_lut"},
+    {36, 1, EN_LOW, LANG_L1, "bap_toef_lut"},
+    {37, 1, EN_LOW, LANG_L1, "mip_dul_sot"},
+    {38, 1, EN_LOW, LANG_L1, "mip_ves_sot"},
+    {39, 1, EN_LOW, LANG_L1, "mip_kof_sot"},
+    {40, 1, EN_LOW, LANG_L1, "mip_dul_sot"},
+    {41, 1, EN_LOW, LANG_L1, "mip_ves_sot"},
+    {42, 1, EN_LOW, LANG_L1, "mip_kof_sot"},
+    {43, 1, EN_LOW, LANG_L1, "mip_dul_sot"},
+    {44, 1, EN_LOW, LANG_L1, "mip_ves_sot"},
+    {45, 1, EN_LOW, LANG_L1, "mip_kof_sot"}
 };
 
 // Training items of language 1 with high entropy
 TrainItem[] items_high_l1 =
 {
-    { 1, 0, EN_HIGH, LANG_L1, "rak_bap_toef"},
-    { 2, 0, EN_HIGH, LANG_L1, "rak_ves_toef"},
-    { 3, 0, EN_HIGH, LANG_L1, "sot_bap_jik"},
-    { 4, 0, EN_HIGH, LANG_L1, "sot_ves_jik"},
-    { 5, 0, EN_HIGH, LANG_L1, "tep_bap_lut"},
-    { 6, 0, EN_HIGH, LANG_L1, "tep_ves_lut"},
-    { 7, 0, EN_HIGH, LANG_L1, "rak_huf_toef"},
-    { 8, 0, EN_HIGH, LANG_L1, "rak_mip_toef"},
-    { 9, 0, EN_HIGH, LANG_L1, "rak_nit_toef"},
-    {10, 0, EN_HIGH, LANG_L1, "rak_pem_toef"},
-    {11, 0, EN_HIGH, LANG_L1, "rak_wop_toef"},
-    {12, 0, EN_HIGH, LANG_L1, "sot_huf_jik"},
-    {13, 0, EN_HIGH, LANG_L1, "sot_mip_jik"},
-    {14, 0, EN_HIGH, LANG_L1, "sot_nit_jik"},
-    {15, 0, EN_HIGH, LANG_L1, "sot_pem_jik"},
-    {16, 0, EN_HIGH, LANG_L1, "sot_wop_jik"},
-    {17, 0, EN_HIGH, LANG_L1, "tep_huf_lut"},
-    {18, 0, EN_HIGH, LANG_L1, "tep_mip_lut"},
-    {19, 0, EN_HIGH, LANG_L1, "tep_nit_lut"},
-    {20, 0, EN_HIGH, LANG_L1, "tep_pem_lut"},
-    {21, 0, EN_HIGH, LANG_L1, "tep_wop_lut"},
-    {22, 0, EN_HIGH, LANG_L1, "rak_bif_toef"},
-    {23, 0, EN_HIGH, LANG_L1, "rak_dul_toef"},
-    {24, 0, EN_HIGH, LANG_L1, "rak_hog_toef"},
-    {25, 0, EN_HIGH, LANG_L1, "rak_jal_toef"},
-    {26, 0, EN_HIGH, LANG_L1, "rak_keg_toef"},
-    {27, 0, EN_HIGH, LANG_L1, "rak_kof_toef"},
-    {28, 0, EN_HIGH, LANG_L1, "rak_naf_toef"},
-    {29, 0, EN_HIGH, LANG_L1, "rak_nup_toef"},
-    {30, 0, EN_HIGH, LANG_L1, "rak_zuk_toef"},
-    {31, 0, EN_HIGH, LANG_L1, "sot_bif_jik"},
-    {32, 0, EN_HIGH, LANG_L1, "sot_dul_jik"},
-    {33, 0, EN_HIGH, LANG_L1, "sot_hog_jik"},
-    {34, 0, EN_HIGH, LANG_L1, "sot_jal_jik"},
-    {35, 0, EN_HIGH, LANG_L1, "sot_keg_jik"},
-    {36, 0, EN_HIGH, LANG_L1, "sot_kof_jik"},
-    {37, 0, EN_HIGH, LANG_L1, "sot_naf_jik"},
-    {38, 0, EN_HIGH, LANG_L1, "sot_nup_jik"},
-    {39, 0, EN_HIGH, LANG_L1, "sot_zuk_jik"},
-    {40, 0, EN_HIGH, LANG_L1, "tep_bif_lut"},
-    {41, 0, EN_HIGH, LANG_L1, "tep_dul_lut"},
-    {42, 0, EN_HIGH, LANG_L1, "tep_hog_lut"},
-    {43, 0, EN_HIGH, LANG_L1, "tep_jal_lut"},
-    {44, 0, EN_HIGH, LANG_L1, "tep_keg_lut"},
-    {45, 0, EN_HIGH, LANG_L1, "tep_kof_lut"},
-    {46, 0, EN_HIGH, LANG_L1, "tep_naf_lut"},
-    {47, 0, EN_HIGH, LANG_L1, "tep_nup_lut"},
-    {48, 0, EN_HIGH, LANG_L1, "tep_zuk_lut"}
+    {1, 1, EN_HIGH, LANG_L1, "naf_hog_tep"},
+    {2, 1, EN_HIGH, LANG_L1, "naf_nit_tep"},
+    {3, 1, EN_HIGH, LANG_L1, "naf_zuk_tep"},
+    {4, 1, EN_HIGH, LANG_L1, "naf_huf_tep"},
+    {5, 1, EN_HIGH, LANG_L1, "naf_jal_tep"},
+    {6, 1, EN_HIGH, LANG_L1, "naf_jik_tep"},
+    {7, 1, EN_HIGH, LANG_L1, "naf_nup_tep"},
+    {8, 1, EN_HIGH, LANG_L1, "naf_rak_tep"},
+    {9, 1, EN_HIGH, LANG_L1, "naf_toef_tep"},
+    {0, 1, EN_HIGH, LANG_L1, "wop_hog_bif"},
+    {11, 1, EN_HIGH, LANG_L1, "wop_nit_bif"},
+    {12, 1, EN_HIGH, LANG_L1, "wop_zuk_bif"},
+    {13, 1, EN_HIGH, LANG_L1, "wop_huf_bif"},
+    {14, 1, EN_HIGH, LANG_L1, "wop_jal_bif"},
+    {15, 1, EN_HIGH, LANG_L1, "wop_jik_bif"},
+    {16, 1, EN_HIGH, LANG_L1, "wop_nup_bif"},
+    {17, 1, EN_HIGH, LANG_L1, "wop_rak_bif"},
+    {18, 1, EN_HIGH, LANG_L1, "wop_toef_bif"},
+    {19, 1, EN_HIGH, LANG_L1, "bap_hog_lut"},
+    {20, 1, EN_HIGH, LANG_L1, "bap_nit_lut"},
+    {21, 1, EN_HIGH, LANG_L1, "bap_zuk_lut"},
+    {22, 1, EN_HIGH, LANG_L1, "bap_huf_lut"},
+    {23, 1, EN_HIGH, LANG_L1, "bap_jal_lut"},
+    {24, 1, EN_HIGH, LANG_L1, "bap_jik_lut"},
+    {25, 1, EN_HIGH, LANG_L1, "bap_nup_lut"},
+    {26, 1, EN_HIGH, LANG_L1, "bap_rak_lut"},
+    {27, 1, EN_HIGH, LANG_L1, "bap_toef_lut"},
+    {28, 1, EN_HIGH, LANG_L1, "pem_hog_dos"},
+    {29, 1, EN_HIGH, LANG_L1, "pem_nit_dos"},
+    {30, 1, EN_HIGH, LANG_L1, "pem_zuk_dos"},
+    {31, 1, EN_HIGH, LANG_L1, "pem_hog_dos"},
+    {32, 1, EN_HIGH, LANG_L1, "pem_nit_dos"},
+    {33, 1, EN_HIGH, LANG_L1, "pem_zuk_dos"},
+    {34, 1, EN_HIGH, LANG_L1, "pem_hog_dos"},
+    {35, 1, EN_HIGH, LANG_L1, "pem_nit_dos"},
+    {36, 1, EN_HIGH, LANG_L1, "pem_zuk_dos"},
+    {37, 1, EN_HIGH, LANG_L1, "mip_dul_sot"},
+    {38, 1, EN_HIGH, LANG_L1, "mip_ves_sot"},
+    {39, 1, EN_HIGH, LANG_L1, "mip_kof_sot"},
+    {40, 1, EN_HIGH, LANG_L1, "mip_dul_sot"},
+    {41, 1, EN_HIGH, LANG_L1, "mip_ves_sot"},
+    {42, 1, EN_HIGH, LANG_L1, "mip_kof_sot"},
+    {43, 1, EN_HIGH, LANG_L1, "mip_dul_sot"},
+    {44, 1, EN_HIGH, LANG_L1, "mip_ves_sot"},
+    {45, 1, EN_HIGH, LANG_L1, "mip_kof_sot"}
 }
 
 // Training items of language 2 with low entropy
 TrainItem[] items_low_l2 =
 {
-    { 1, 0, EN_LOW, LANG_L2, "rak_bap_lut"},
-    { 3, 0, EN_LOW, LANG_L2, "rak_ves_lut"},
-    { 4, 0, EN_LOW, LANG_L2, "sot_bap_toef"},
-    { 6, 0, EN_LOW, LANG_L2, "sot_ves_toef"},
-    { 7, 0, EN_LOW, LANG_L2, "tep_bap_jik"},
-    { 9, 0, EN_LOW, LANG_L2, "tep_ves_jik"},
-    {10, 0, EN_LOW, LANG_L2, "rak_huf_lut"},
-    {11, 0, EN_LOW, LANG_L2, "rak_keg_lut"},
-    {12, 0, EN_LOW, LANG_L2, "sot_huf_toef"},
-    {13, 0, EN_LOW, LANG_L2, "sot_keg_toef"},
-    {14, 0, EN_LOW, LANG_L2, "tep_huf_jik"},
-    {15, 0, EN_LOW, LANG_L2, "tep_keg_jik"},
+    {1, 1, EN_LOW, LANG_L2, "naf_hog_tep"},
+    {2, 1, EN_LOW, LANG_L2, "naf_nit_tep"},
+    {3, 1, EN_LOW, LANG_L2, "naf_zuk_tep"},
+    {4, 1, EN_LOW, LANG_L2, "naf_huf_tep"},
+    {5, 1, EN_LOW, LANG_L2, "naf_jal_tep"},
+    {6, 1, EN_LOW, LANG_L2, "naf_huf_tep"},
+    {7, 1, EN_LOW, LANG_L2, "naf_jal_tep"},
+    {8, 1, EN_LOW, LANG_L2, "naf_huf_tep"},
+    {9, 1, EN_LOW, LANG_L2, "naf_jal_tep"},
+    {10, 1, EN_LOW, LANG_L2, "wop_hog_bif"},
+    {11, 1, EN_LOW, LANG_L2, "wop_nit_bif"},
+    {12, 1, EN_LOW, LANG_L2, "wop_zuk_bif"},
+    {13, 1, EN_LOW, LANG_L2, "wop_jik_bif"},
+    {14, 1, EN_LOW, LANG_L2, "wop_nup_bif"},
+    {15, 1, EN_LOW, LANG_L2, "wop_jik_bif"},
+    {16, 1, EN_LOW, LANG_L2, "wop_nup_bif"},
+    {17, 1, EN_LOW, LANG_L2, "wop_jik_bif"},
+    {18, 1, EN_LOW, LANG_L2, "wop_nup_bif"},
+    {19, 1, EN_LOW, LANG_L2, "bap_hog_lut"},
+    {20, 1, EN_LOW, LANG_L2, "bap_nit_lut"},
+    {21, 1, EN_LOW, LANG_L2, "bap_zuk_lut"},
+    {22, 1, EN_LOW, LANG_L2, "bap_rak_lut"},
+    {23, 1, EN_LOW, LANG_L2, "bap_toef_lut"},
+    {24, 1, EN_LOW, LANG_L2, "bap_rak_lut"},
+    {25, 1, EN_LOW, LANG_L2, "bap_toef_lut"},
+    {26, 1, EN_LOW, LANG_L2, "bap_rak_lut"},
+    {27, 1, EN_LOW, LANG_L2, "bap_toef_lut"},
+    {28, 1, EN_LOW, LANG_L2, "mip_hog_sot"},
+    {29, 1, EN_LOW, LANG_L2, "mip_nit_sot"},
+    {30, 1, EN_LOW, LANG_L2, "mip_zuk_sot"},
+    {31, 1, EN_LOW, LANG_L2, "mip_hog_sot"},
+    {32, 1, EN_LOW, LANG_L2, "mip_nit_sot"},
+    {33, 1, EN_LOW, LANG_L2, "mip_zuk_sot"},
+    {34, 1, EN_LOW, LANG_L2, "mip_hog_sot"},
+    {35, 1, EN_LOW, LANG_L2, "mip_nit_sot"},
+    {36, 1, EN_LOW, LANG_L2, "mip_zuk_sot"},
+    {37, 1, EN_LOW, LANG_L2, "pem_dul_dos"},
+    {38, 1, EN_LOW, LANG_L2, "pem_ves_dos"},
+    {39, 1, EN_LOW, LANG_L2, "pem_kof_dos"},
+    {40, 1, EN_LOW, LANG_L2, "pem_dul_dos"},
+    {41, 1, EN_LOW, LANG_L2, "pem_ves_dos"},
+    {42, 1, EN_LOW, LANG_L2, "pem_kof_dos"},
+    {43, 1, EN_LOW, LANG_L2, "pem_dul_dos"},
+    {44, 1, EN_LOW, LANG_L2, "pem_ves_dos"},
+    {45, 1, EN_LOW, LANG_L2, "pem_kof_dos"}
 };
 
 
 // Training items of language 2 with high entropy
 TrainItem[] items_high_l2 =
 {
-    { 1, 0,  EN_HIGH, LANG_L2, "rak_bap_lut"},
-    { 2, 0,  EN_HIGH, LANG_L2, "rak_ves_lut"},
-    { 3, 0,  EN_HIGH, LANG_L2, "sot_bap_toef"},
-    { 4, 0,  EN_HIGH, LANG_L2, "sot_ves_toef"},
-    { 5, 0,  EN_HIGH, LANG_L2, "tep_bap_jik"},
-    { 6, 0,  EN_HIGH, LANG_L2, "tep_ves_jik"},
-    { 7, 0, EN_HIGH, LANG_L2, "rak_huf_lut"},
-    { 8, 0, EN_HIGH, LANG_L2, "rak_mip_lut"},
-    { 9, 0, EN_HIGH, LANG_L2, "rak_nit_lut"},
-    {10, 0, EN_HIGH, LANG_L2, "rak_pem_lut"},
-    {11, 0, EN_HIGH, LANG_L2, "rak_wop_lut"},
-    {12, 0, EN_HIGH, LANG_L2, "sot_huf_toef"},
-    {13, 0, EN_HIGH, LANG_L2, "sot_mip_toef"},
-    {14, 0, EN_HIGH, LANG_L2, "sot_nit_toef"},
-    {15, 0, EN_HIGH, LANG_L2, "sot_pem_toef"},
-    {16, 0, EN_HIGH, LANG_L2, "sot_wop_toef"},
-    {17, 0, EN_HIGH, LANG_L2, "tep_huf_jik"},
-    {18, 0, EN_HIGH, LANG_L2, "tep_mip_jik"},
-    {19, 0, EN_HIGH, LANG_L2, "tep_nit_jik"},
-    {20, 0, EN_HIGH, LANG_L2, "tep_pem_jik"},
-    {21, 0, EN_HIGH, LANG_L2, "tep_wop_jik"},
-    {22, 0, EN_HIGH, LANG_L2, "rak_bif_lut"},
-    {23, 0, EN_HIGH, LANG_L2, "rak_dul_lut"},
-    {24, 0, EN_HIGH, LANG_L2, "rak_hog_lut"},
-    {25, 0, EN_HIGH, LANG_L2, "rak_jal_lut"},
-    {26, 0, EN_HIGH, LANG_L2, "rak_keg_lut"},
-    {27, 0, EN_HIGH, LANG_L2, "rak_kof_lut"},
-    {28, 0, EN_HIGH, LANG_L2, "rak_naf_lut"},
-    {29, 0, EN_HIGH, LANG_L2, "rak_nup_lut"},
-    {30, 0, EN_HIGH, LANG_L2, "rak_zuk_lut"},
-    {31, 0, EN_HIGH, LANG_L2, "sot_bif_toef"},
-    {32, 0, EN_HIGH, LANG_L2, "sot_dul_toef"},
-    {33, 0, EN_HIGH, LANG_L2, "sot_hog_toef"},
-    {34, 0, EN_HIGH, LANG_L2, "sot_jal_toef"},
-    {35, 0, EN_HIGH, LANG_L2, "sot_keg_toef"},
-    {36, 0, EN_HIGH, LANG_L2, "sot_kof_toef"},
-    {37, 0, EN_HIGH, LANG_L2, "sot_naf_toef"},
-    {38, 0, EN_HIGH, LANG_L2, "sot_nup_toef"},
-    {39, 0, EN_HIGH, LANG_L2, "sot_zuk_toef"},
-    {40, 0, EN_HIGH, LANG_L2, "tep_bif_jik"},
-    {41, 0, EN_HIGH, LANG_L2, "tep_dul_jik"},
-    {42, 0, EN_HIGH, LANG_L2, "tep_hog_jik"},
-    {43, 0, EN_HIGH, LANG_L2, "tep_jal_jik"},
-    {44, 0, EN_HIGH, LANG_L2, "tep_keg_jik"},
-    {45, 0, EN_HIGH, LANG_L2, "tep_kof_jik"},
-    {46, 0, EN_HIGH, LANG_L2, "tep_naf_jik"},
-    {47, 0, EN_HIGH, LANG_L2, "tep_nup_jik"},
-    {48, 0, EN_HIGH, LANG_L2, "tep_zuk_jik"}
+    {1, 1, EN_HIGH, LANG_L2, "naf_hog_tep"},
+    {2, 1, EN_HIGH, LANG_L2, "naf_nit_tep"},
+    {3, 1, EN_HIGH, LANG_L2, "naf_zuk_tep"},
+    {4, 1, EN_HIGH, LANG_L2, "naf_huf_tep"},
+    {1, 1, EN_HIGH, LANG_L2, "naf_jal_tep"},
+    {6, 1, EN_HIGH, LANG_L2, "naf_jik_tep"},
+    {7, 1, EN_HIGH, LANG_L2, "naf_nup_tep"},
+    {8, 1, EN_HIGH, LANG_L2, "naf_rak_tep"},
+    {9, 1, EN_HIGH, LANG_L2, "naf_toef_tep"},
+    {0, 1, EN_HIGH, LANG_L2, "wop_hog_bif"},
+    {11, 1, EN_HIGH, LANG_L2, "wop_nit_bif"},
+    {12, 1, EN_HIGH, LANG_L2, "wop_zuk_bif"},
+    {13, 1, EN_HIGH, LANG_L2, "wop_huf_bif"},
+    {14, 1, EN_HIGH, LANG_L2, "wop_jal_bif"},
+    {11, 1, EN_HIGH, LANG_L2, "wop_jik_bif"},
+    {16, 1, EN_HIGH, LANG_L2, "wop_nup_bif"},
+    {17, 1, EN_HIGH, LANG_L2, "wop_rak_bif"},
+    {18, 1, EN_HIGH, LANG_L2, "wop_toef_bif"},
+    {19, 1, EN_HIGH, LANG_L2, "bap_hog_lut"},
+    {20, 1, EN_HIGH, LANG_L2, "bap_nit_lut"},
+    {21, 1, EN_HIGH, LANG_L2, "bap_zuk_lut"},
+    {22, 1, EN_HIGH, LANG_L2, "bap_huf_lut"},
+    {23, 1, EN_HIGH, LANG_L2, "bap_jal_lut"},
+    {24, 1, EN_HIGH, LANG_L2, "bap_jik_lut"},
+    {21, 1, EN_HIGH, LANG_L2, "bap_nup_lut"},
+    {26, 1, EN_HIGH, LANG_L2, "bap_rak_lut"},
+    {27, 1, EN_HIGH, LANG_L2, "bap_toef_lut"},
+    {28, 1, EN_HIGH, LANG_L2, "mip_hog_sot"},
+    {29, 1, EN_HIGH, LANG_L2, "mip_nit_sot"},
+    {30, 1, EN_HIGH, LANG_L2, "mip_zuk_sot"},
+    {31, 1, EN_HIGH, LANG_L2, "mip_hog_sot"},
+    {32, 1, EN_HIGH, LANG_L2, "mip_nit_sot"},
+    {33, 1, EN_HIGH, LANG_L2, "mip_zuk_sot"},
+    {34, 1, EN_HIGH, LANG_L2, "mip_hog_sot"},
+    {31, 1, EN_HIGH, LANG_L2, "mip_nit_sot"},
+    {36, 1, EN_HIGH, LANG_L2, "mip_zuk_sot"},
+    {37, 1, EN_HIGH, LANG_L2, "pem_dul_dos"},
+    {38, 1, EN_HIGH, LANG_L2, "pem_ves_dos"},
+    {39, 1, EN_HIGH, LANG_L2, "pem_kof_dos"},
+    {40, 1, EN_HIGH, LANG_L2, "pem_dul_dos"},
+    {41, 1, EN_HIGH, LANG_L2, "pem_ves_dos"},
+    {42, 1, EN_HIGH, LANG_L2, "pem_kof_dos"},
+    {43, 1, EN_HIGH, LANG_L2, "pem_dul_dos"},
+    {44, 1, EN_HIGH, LANG_L2, "pem_ves_dos"},
+    {45, 1, EN_HIGH, LANG_L2, "pem_kof_dos"},
 }
 
 void append_train_item(TrainItem[] array, TrainItem item) {
@@ -201,80 +261,71 @@ void append_test_item(TestItem[] array, TestItem item) {
     array[array.size - 1] = item;
 }
 
-/*
- * Distributes all trainings items over the three separate lists/blocks
- */
-void prepare_training_lists(TrainItem[] input) {
-    TrainItem[] master_list = {};
-    TrainItem[] current_list;
-    int nth_rep = 0;
-    int i = 0;
-    int start;
-    int end;
-    while (master_list.size < TOT_TRAININGS_ITEMS) {
-        i = 0;
-        while(i < input.size && i < NUM_TRAININGS_ITEMS) {
+// No two subsequent items should have the same sound file.
+bool
+check_train_items(TrainItem[] input) {
+    int i = 1;
+    while (i < input.size) {
+        if (input[i].sndfn == input[i-1].sndfn)
+            return false;
+        i++;
+    }
+    if (input.size != 90) {
+        print_error("Oops the training item block doesn't contain 90 items.\n");
+    }
+    return input.size == 90;
+}
+
+// Puts the 45 train items in a randomized fashion in the block twice. So
+// The final block will contain 90 items
+bool
+train_items_append_block(TrainItem[] output, TrainItem[] input, int block) {
+
+    bool meets_constraints = false;
+    int num_tries = 1000;
+    int num = 0;
+
+    while (!meets_constraints && num < num_tries) {
+        int i = 0;
+        output.size = 0;
+
+        input.shuffle(0, -1);
+        while (i < input.size) {
             TrainItem item = input[i];
-            item.nth_rep = nth_rep;
-            append_train_item(master_list, item);
+            item.block = block;
+            append_train_item(output, item);
             i++;
         }
-        nth_rep++;
-    }
-    if (master_list.size != TOT_TRAININGS_ITEMS) {
-        print_error("The number of trainings items is " + master_list.size +". "); 
-        print_error("We expected it to be " + TOT_TRAININGS_ITEMS + "\n");
+        
+        input.shuffle(0, -1);
+        while (i < input.size) {
+            TrainItem item = input[i];
+            item.block = block;
+            append_train_item(output, item);
+            i++;
+        }
+        num++;
+        meets_constraints = check_train_items(output);
     }
 
-    // prepare list 1
-    current_list = training_items1;
-    start = TOT_TRAININGS_ITEMS / NUM_TRAINING_BLOCKS * 0;
-    end = start + NUM_TRAININGS_ITEMS;
-    i = start;
-    while (i < end) {
-        append_train_item(current_list, master_list[i]);
-        i++;
-    }
-    if (current_list.size != NUM_TRAININGS_ITEMS) {
-        print_error("block1 The number of trainings items is " + current_list.size +". "); 
-        print_error("We expected it to be " + NUM_TRAININGS_ITEMS + "\n");
-    }
-    
-    // prepare list 2
-    current_list = training_items2;
-    start = TOT_TRAININGS_ITEMS / NUM_TRAINING_BLOCKS * 1;
-    end = start + NUM_TRAININGS_ITEMS;
-    i = start;
-    while (i < end) {
-        append_train_item(current_list, master_list[i]);
-        i++;
-    }
-    if (current_list.size != NUM_TRAININGS_ITEMS) {
-        print_error("block2 The number of trainings items is " + current_list.size +". "); 
-        print_error("We expected it to be " + NUM_TRAININGS_ITEMS + "\n");
-    }
-    
-    // prepare list 3
-    current_list = training_items3;
-    start = TOT_TRAININGS_ITEMS / NUM_TRAINING_BLOCKS * 2;
-    end = start + NUM_TRAININGS_ITEMS;
-    i = start;
-    while (i < end) {
-        append_train_item(current_list, master_list[i]);
-        i++;
-    }
-    if (current_list.size != NUM_TRAININGS_ITEMS) {
-        print_error("block3 The number of trainings items is " + current_list.size +". "); 
-        print_error("We expected it to be " + NUM_TRAININGS_ITEMS + "\n");
-    }
+    return meets_constraints;
+}
+
+/*
+ * Distributes all training items over the three separate lists/blocks
+ */
+void prepare_training_lists(TrainItem[] input) {
+    train_items_append_block(training_items1, input, 1);
+    train_items_append_block(training_items2, input, 2);
+    train_items_append_block(training_items3, input, 3);
 }
 
 /*
  * Selects the right source list for the current conditions and
  * prepares the training lists.
  */
-void prepare_training_items() {
-
+void prepare_training_items()
+{
     TrainItem[] training_items;
 
     if (chosen_entropy == EN_HIGH) {
@@ -298,7 +349,6 @@ void prepare_training_items() {
  */
 record TestItem {
     int         id;
-    CondList    list_ab;
     GrammarType g1;
     string      fn1;
     GrammarType g2;
@@ -307,7 +357,6 @@ record TestItem {
 
 void print_test_item(TestItem item) {
     println(string(item.id) + " " +
-            string(item.list_ab) + " " +
             item.g1  + " " +
             item.fn1 + " " +
             item.g2  + " " +
@@ -330,69 +379,14 @@ void print_test_items(TestItem[] items, bool header) {
  * Test items belonging to list A
  */
 
-TestItem[] test_items_fam_a = {
-    { 1, LIST_A, GRAM_L1, "rak_bap_toef", GRAM_L2, "rak_bap_lut"},
-    { 2, LIST_A, GRAM_L1, "rak_huf_toef", GRAM_L2, "rak_huf_lut"},
-    { 3, LIST_A, GRAM_L1, "rak_ves_toef", GRAM_L2, "rak_ves_lut"},
-    { 4, LIST_A, GRAM_L1, "sot_bap_jik",  GRAM_L2, "sot_bap_toef"},
-    { 5, LIST_A, GRAM_L1, "sot_huf_jik",  GRAM_L2, "sot_huf_toef"},
-    { 6, LIST_A, GRAM_L1, "sot_ves_jik",  GRAM_L2, "sot_ves_toef"},
-    { 7, LIST_A, GRAM_L1, "tep_bap_lut",  GRAM_L2, "tep_bap_jik"},
-    { 8, LIST_A, GRAM_L1, "tep_huf_lut",  GRAM_L2, "tep_huf_jik"},
-    { 9, LIST_A, GRAM_L1, "tep_ves_lut",  GRAM_L2, "tep_ves_jik"},
-    {10, LIST_A, GRAM_L1, "rak_keg_toef", GRAM_L2, "rak_keg_lut"},
-    {11, LIST_A, GRAM_L1, "sot_keg_jik",  GRAM_L2, "sot_keg_toef"},
-    {12, LIST_A, GRAM_L1, "tep_keg_lut",  GRAM_L2, "tep_keg_jik"}
+TestItem[] test_items_l1 = {
 };
 
-TestItem[] test_items_new_a = {
-    { 1, LIST_A, GRAM_L1, "rak_bug_toef", GRAM_L2, "rak_bug_lut"},
-    { 2, LIST_A, GRAM_L1, "rak_gak_toef", GRAM_L2, "rak_gak_lut"},
-    { 3, LIST_A, GRAM_L1, "rak_zim_toef", GRAM_L2, "rak_zim_lut"},
-    { 4, LIST_A, GRAM_L1, "sot_bug_jik",  GRAM_L2, "sot_bug_toef"},
-    { 5, LIST_A, GRAM_L1, "sot_gak_jik",  GRAM_L2, "sot_gak_toef"},
-    { 6, LIST_A, GRAM_L1, "sot_zim_jik",  GRAM_L2, "sot_zim_toef"},
-    { 7, LIST_A, GRAM_L1, "tep_bug_lut",  GRAM_L2, "tep_bug_jik"},
-    { 8, LIST_A, GRAM_L1, "tep_gak_lut",  GRAM_L2, "tep_gak_jik"},
-    { 9, LIST_A, GRAM_L1, "tep_zim_lut",  GRAM_L2, "tep_zim_jik"},
-    {10, LIST_A, GRAM_L1, "rak_dos_toef", GRAM_L2, "rak_dos_lut"},
-    {11, LIST_A, GRAM_L1, "sot_dos_jik",  GRAM_L2, "sot_dos_toef"},
-    {12, LIST_A, GRAM_L1, "tep_dos_lut",  GRAM_L2, "tep_dos_jik"}
+TestItem[] test_items_l2 = {
 };
 
-/*
- * Test items belonging to list B
- */
-TestItem[] test_items_fam_b = {
-   { 1, LIST_B, GRAM_L1, "rak_bap_toef", GRAM_L2, "sot_bap_toef"},
-   { 2, LIST_B, GRAM_L1, "rak_huf_toef", GRAM_L2, "sot_huf_toef"},
-   { 3, LIST_B, GRAM_L1, "rak_ves_toef", GRAM_L2, "sot_ves_toef"},
-   { 4, LIST_B, GRAM_L1, "sot_bap_jik",  GRAM_L2, "tep_bap_jik"},
-   { 5, LIST_B, GRAM_L1, "sof_huf_jik",  GRAM_L2, "tep_huf_jik"},
-   { 6, LIST_B, GRAM_L1, "sot_ves_jik",  GRAM_L2, "tep_ves_jik"},
-   { 7, LIST_B, GRAM_L1, "tep_bap_lut",  GRAM_L2, "rak_bap_lut"},
-   { 8, LIST_B, GRAM_L1, "tep_huf_lut",  GRAM_L2, "rak_huf_lut"},
-   { 9, LIST_B, GRAM_L1, "tep_ves_lut",  GRAM_L2, "rak_ves_lut"},
-   {10, LIST_B, GRAM_L1, "rak_keg_toef", GRAM_L2, "sot_keg_toef"},
-   {11, LIST_B, GRAM_L1, "sot_keg_jik",  GRAM_L2, "tap_keg_jik"},
-   {12, LIST_B, GRAM_L1, "tep_keg_lut",  GRAM_L2, "rak_keg_lut"}
-};
 
-TestItem[] test_items_new_b = {
-   { 1, LIST_B, GRAM_L1, "rak_bug_toef", GRAM_L2, "sot_bug_toef"},
-   { 2, LIST_B, GRAM_L1, "rak_gak_toef", GRAM_L2, "sot_gak_toef"},
-   { 3, LIST_B, GRAM_L1, "rak_zim_toef", GRAM_L2, "sot_zim_toef"},
-   { 4, LIST_B, GRAM_L1, "sot_bug_jik",  GRAM_L2, "tep_bug_jik"},
-   { 5, LIST_B, GRAM_L1, "sot_gak_jik",  GRAM_L2, "tep_gak_jik"},
-   { 6, LIST_B, GRAM_L1, "sot_zim_jik",  GRAM_L2, "tep_zim_jik"},
-   { 7, LIST_B, GRAM_L1, "tep_bug_lut",  GRAM_L2, "rak_bug_lut"},
-   { 8, LIST_B, GRAM_L1, "tep_gak_lut",  GRAM_L2, "rak_gak_lut"},
-   { 9, LIST_B, GRAM_L1, "tep_zim_lut",  GRAM_L2, "rak_zim_lut"},
-   {10, LIST_B, GRAM_L1, "rak_dos_toef", GRAM_L2, "sot_dos_toef"},
-   {11, LIST_B, GRAM_L1, "sot_dos_jik",  GRAM_L2, "tep_dos_jik"},
-   {12, LIST_B, GRAM_L1, "tep_dos_lut",  GRAM_L2, "rak_dos_lut"}
-};
-
+/*The test items above are going to be distributed of the lists below*/ 
 TestItem [] test_items1 = {};
 TestItem [] test_items2 = {};
 TestItem [] test_items3 = {};
@@ -414,42 +408,6 @@ TestItem swap_words_in_test_item(TestItem item) {
  * prepares the testitems
  */
 void prepare_test_stims(TestItem[] test_items) {
-    int[] swap = {}; // Nope initializing with {1 ,1, ..., 0}; is a syntax error...
-    swap.size = TOT_TEST_ITEMS;
-
-    /*The first and second word are swapped when swap is one*/
-    swap[0] = 1;
-    swap[1] = 1;
-    swap[2] = 1;
-    swap[3] = 1;
-    swap[4] = 1;
-    swap[5] = 1;
-    swap[6] = 0;
-    swap[7] = 0;
-    swap[8] = 0;
-    swap[9] = 0;
-    swap[10] = 0;
-    swap[11] = 0;
-    swap.shuffle(0, -1);
-    
-    int i = 0;
-
-    while (i < TOT_TEST_ITEMS) {
-        TestItem item = test_items[i];
-
-        if (swap[i] == 1) {
-            item = swap_words_in_test_item(item);
-        }
-
-        if (i % 3 == 0)
-            append_test_item(test_items1, item);
-        else if (i % 3 == 1)
-            append_test_item(test_items2, item);
-        else
-            append_test_item(test_items3, item);
-
-        i++;
-    }
 }
 
 /*
@@ -458,21 +416,11 @@ void prepare_test_stims(TestItem[] test_items) {
 void prepare_test_lists () {
 
     // shuffle the order of the test items.
-    test_items_fam_a.shuffle(0,-1);
-    test_items_new_a.shuffle(0,-1);
-    test_items_fam_b.shuffle(0,-1);
-    test_items_new_b.shuffle(0,-1);
+    test_items_l1.shuffle(0,-1);
+    test_items_l2.shuffle(0,-1);
 
-    if (chosen_test_stim == STIM_FAMILIAR) {
-        if (chosen_list == LIST_A)
-            prepare_test_stims(test_items_fam_a);
-        else
-            prepare_test_stims(test_items_fam_b);
-    }
-    else {
-        if (chosen_list == LIST_A)
-            prepare_test_stims(test_items_new_a);
-        else
-            prepare_test_stims(test_items_new_b);
-    }
+    if (chosen_language == LANG_L1)
+        prepare_test_stims(test_items_l1);
+    else
+        prepare_test_stims(test_items_l2);
 }

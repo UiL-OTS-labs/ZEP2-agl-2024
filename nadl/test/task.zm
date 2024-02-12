@@ -88,6 +88,8 @@ Block task
                 else
                     train_items = null;
 
+                num_cycles = train_items.size;
+
                 // Prepare test page: progress bar, feedback and prompt enabled.
                 train_page.setup(num_cycles);
             }
@@ -116,10 +118,7 @@ Block task
                     output.trial = training.cycle + 1;
                     output.id = item.id;
                     output.entropy = item.entropy;
-                    output.pause = chosen_pause;
                     output.language = item.language;
-                    output.test_stims = chosen_test_stim;
-                    output.list_ab = chosen_list;
                     output.fn1 = item.sndfn;
                     output.value = -1;
                     output.rt = -1;
@@ -145,12 +144,7 @@ Block task
             {
                 string instructions;
                 if (training_test_repetitions.cycle == 0) {
-                    if (chosen_test_stim == STIM_NEW) {
-                        instructions = PRE_TEST_INSTRUCTION_NEW;
-                    }
-                    else {
-                        instructions = PRE_TEST_INSTRUCTION;
-                    }
+                    instructions = PRE_TEST_INSTRUCTION;
                 }
                 else
                     instructions = PRE_TEST_INSTRUCTION_SHORT;
@@ -221,10 +215,7 @@ Block task
                     output.trial = test.cycle + 1;
                     output.id = item.id;
                     output.entropy = chosen_entropy;
-                    output.pause = chosen_pause;
                     output.language = chosen_language;
-                    output.test_stims = chosen_test_stim;
-                    output.list_ab = item.list_ab;
                     output.fn1 = item.fn1;
                     output.fn2 = item.fn2;
                     output.value = test_page.response.value;

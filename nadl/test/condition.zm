@@ -16,6 +16,11 @@ enum CondLang {
     LANG_L2
 };
 
+enum CondTestStims {
+    STIM_FAMILIAR,
+    STIM_NEW
+};
+
 CondEntropy     chosen_entropy;
 CondLang        chosen_language;
 

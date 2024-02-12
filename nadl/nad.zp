@@ -29,15 +29,6 @@ Experiment experiment
         test::TOT_TRAININGS_ITEMS = test::NUM_TRAININGS_ITEMS * 3;
         test::prepare_training_items();
 
-        string message = "Unable to randomize according constraints";
-
-        if (test::shuffle_test_items(test::training_items1) != OK)
-            terminate message;
-        if (test::shuffle_test_items(test::training_items2) != OK)
-            terminate message;
-        if (test::shuffle_test_items(test::training_items3) != OK)
-            terminate message;
-
         test::prepare_test_lists();
 
         if (have_flag("print-items") ||

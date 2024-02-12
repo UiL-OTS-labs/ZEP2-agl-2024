@@ -165,10 +165,7 @@ Page train_page
 
 
         // Show this page (if not yet done) and make tref the trial start time.
-        if (chosen_pause == PAUSE)
-            tref = test_window1.show_test_page(this, tref + PAUSE_INTERTRIAL_INTERVAL);
-        else
-            tref = test_window1.show_test_page(this, tref + NOPAUSE_INTERTRIAL_INTERVAL);
+        tref = test_window1.show_test_page(this, tref + INTERTRIAL_INTERVAL);
 
         // Start fixation symbol.
         time fixoffset = layout.start_fixation(tref);

@@ -14,9 +14,8 @@ HISTORY:
 \******************************************************************************/
 
 
-// Duration of the interval between two trials.
-const dur       PAUSE_INTERTRIAL_INTERVAL       = 250ms;
-const dur       NOPAUSE_INTERTRIAL_INTERVAL     = 83ms;
+// Duration of the interval between two stimuli during a training.
+const dur       TRAIN_ITI                       = 650ms;
 
 // Duration between test trials
 const dur       INTERTRIAL_INTERVAL             = 1s;

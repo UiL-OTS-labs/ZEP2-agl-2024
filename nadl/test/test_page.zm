@@ -263,7 +263,7 @@ Page test_page
                 is_visible = false;
                 hor_spacing = 10;
                 ver_spacing = 10;
-                wrap_count = 6;
+                wrap_count = 5;
                 options = LAYOUT_EQUAL_WIDTH | LAYOUT_EQUAL_HEIGHT;
             }
 
@@ -403,6 +403,7 @@ Page test_page
 
         void reset()
         {
+            layout.grid.is_visible = false;
             full_abort();
         }
     }
@@ -412,6 +413,11 @@ Page test_page
     {
         // Sound source/producer object.
         SoundFile clip1 {}
+
+        finish()
+        {
+            layout.grid.is_visible = true;
+        }
 
         time play(time t)
         {

@@ -25,18 +25,6 @@ const string PRE_TEST_INSTRUCTION =
     "het horen van de klankenreeksen).\n\n"
     "Druk op <b>start</b> om verder te gaan.";
 
-const string PRE_TEST_INSTRUCTION_NEW = 
-    "Je gaat nu een aantal vragen beantwoorden.\n\n"
-    "Je krijgt twee klankenreeksen te horen. Selecteer de klankenreeks "
-    "waarvan het waarschijnlijker is dat deze uit de buitenaardse taal komt "
-    "die je net hoorde.\n\n"
-    "Niet alle klanken in deze test zijn voorgekomen in de taal die je net "
-    "hoorde, maar je kunt nog steeds de klankenreeks selecteren die het meest "
-    "waarschijnlijk uit deze taal komt.\n\n"
-    "Denk niet te lang na. Vertrouw op je intuïtie en reageer vlot (na "
-    "het horen van de klankenreeksen).\n\n"
-    "Druk op <b>start</b> om verder te gaan.";
-
 const string PRE_TEST_INSTRUCTION_SHORT = 
     "Je gaat nu weer een aantal vragen beantwoorden.\n"
     "Druk op <b>start</b> om verder te gaan.";

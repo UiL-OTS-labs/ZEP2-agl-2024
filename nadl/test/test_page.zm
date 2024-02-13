@@ -165,10 +165,7 @@ Page train_page
 
 
         // Show this page (if not yet done) and make tref the trial start time.
-        if (chosen_pause == PAUSE)
-            tref = test_window1.show_test_page(this, tref + PAUSE_INTERTRIAL_INTERVAL);
-        else
-            tref = test_window1.show_test_page(this, tref + NOPAUSE_INTERTRIAL_INTERVAL);
+        tref = test_window1.show_test_page(this, tref + INTERTRIAL_INTERVAL);
 
         // Start fixation symbol.
         time fixoffset = layout.start_fixation(tref);
@@ -259,55 +256,139 @@ Page test_page
             }
         }
 
-	    /* Disable buttons from the screen - user uses handels */
-        HorizontalLayout buttons
+        HorGridLayout grid
         {
             init()
             {
-                spacing = 50;
-                options = LAYOUT_EQUAL_WIDTH;
+                is_visible = false;
+                hor_spacing = 10;
+                ver_spacing = 10;
+                wrap_count = 6;
+                options = LAYOUT_EQUAL_WIDTH | LAYOUT_EQUAL_HEIGHT;
             }
 
-
-            ButtonGadget button1
+            LabelGadget l1
             {
                 init()
                 {
-                    text = FIRST_BUTTON_TEXT;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                    size = 150, 75;
-                }
-
-
-                on_event:activate()
-                {
-                    response.process_hit(FIRST, event_time);
+                    text = "Onzeker";
+                    font_family = TEST_PAGE_PROMPT_FONT_FAMILY;
+                    font_size = TEST_PAGE_PROMPT_FONT_SIZE;
+                    text_color = TEST_PAGE_PROMPT_TEXT_COLOR;
                 }
             }
 
+            // These are added to align the buttons with the labels
+            Spacer {}
+            Spacer {}
+            Spacer {}
 
-            ButtonGadget button2
+            LabelGadget l2
             {
                 init()
                 {
-                    text = SECOND_BUTTON_TEXT;
+                    text = "Zeker";
+                    font_family = TEST_PAGE_PROMPT_FONT_FAMILY;
+                    font_size = TEST_PAGE_PROMPT_FONT_SIZE;
+                    text_color = TEST_PAGE_PROMPT_TEXT_COLOR;
+                }
+            }
+
+            ButtonGadget b1
+            {
+                int value = 1;
+
+                init()
+                {
+                    text = string(value);
+                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
                     font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
                     font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
                     text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                    size = 150, 75;
                 }
 
-                on_event:activate()
+                activate()
                 {
-                    response.process_hit(SECOND, event_time);
+                    test_page.response.process_hit(value, event_time);
+                }
+            }
+
+            ButtonGadget b2
+            {
+                int value = 2;
+
+                init()
+                {
+                    text = string(value);
+                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
+                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
+                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
+                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
+                }
+
+                activate()
+                {
+                    test_page.response.process_hit(value, event_time);
+                }
+            }
+
+            ButtonGadget b3
+            {
+                int value = 3;
+
+                init()
+                {
+                    text = string(value);
+                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
+                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
+                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
+                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
+                }
+
+                activate()
+                {
+                    test_page.response.process_hit(value, event_time);
+                }
+            }
+
+            ButtonGadget b4
+            {
+                int value = 4;
+
+                init()
+                {
+                    text = string(value);
+                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
+                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
+                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
+                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
+                }
+
+                activate()
+                {
+                    test_page.response.process_hit(value, event_time);
+                }
+            }
+
+            ButtonGadget b5
+            {
+                int value = 5;
+
+                init()
+                {
+                    text = string(value);
+                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
+                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
+                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
+                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
+                }
+
+                activate()
+                {
+                    test_page.response.process_hit(value, event_time);
                 }
             }
         }
-	
 
 
         time start_fixation(time t)
@@ -331,17 +412,13 @@ Page test_page
     {
         // Sound source/producer object.
         SoundFile clip1 {}
-        SilenceGenerator Silence{}
-        SoundFile clip2 {}
 
         time play(time t)
         {
             abort();
 
             stimulus.device = sound_output_device;
-            clip1.file = stimuli_dir() + "sounds/test/" + item.fn1 + ".wav";
-            Silence.duration = 1s;
-            clip2.file = stimuli_dir() + "sounds/test/" + item.fn2 + ".wav";
+            clip1.file = stimuli_dir() + "sounds/test/" + item.fn + ".wav";
 
             start(t);
 
@@ -362,7 +439,6 @@ Page test_page
         {
             value = -1;
             rt = -9999;
-            correct = -1;
         }
 
 
@@ -377,19 +453,6 @@ Page test_page
                 value = val;
                 ignore_remaining_hits();
                 rt = int(reaction_time(0));
-                GrammarType selected_grammar;
-                if (val == FIRST)
-                    selected_grammar = item.g1;
-                else if (val == SECOND)
-                    selected_grammar = item.g2;
-                else
-                    print_error("Unexpected answer chosen, report this error\n");
-
-                if (chosen_language == LANG_L1 && selected_grammar == GRAM_L1 ||
-                    chosen_language == LANG_L2 && selected_grammar == GRAM_L2)
-                    correct = 1;
-                else
-                    correct = 0;
 
                 stop();
             }
@@ -429,20 +492,6 @@ Page test_page
 
     //==========================================================================
 
-    void setup_beexy_box()
-    {
-        // Enable button-box buttons 0 and 1 for resp. yes(0) and no(1).
-        control.target = this;
-
-        control.disable_buttons();
-        // button 0 means that the left button indicates that participant thinks the
-        // first stimulus belongs to the training language
-        control.enable_button(0, FIRST);
-        // button 1 the participant thinks the second stimulus belonged to the
-        // trained language.
-        control.enable_button(2, SECOND); // button 2 means no(0)
-    }
-
 
     // Performs preparatory work required before using this page.
     void setup(int nth_test, int num_trials=-1)
@@ -475,8 +524,6 @@ Page test_page
         // Reset response data.
         response.clear();
 
-        setup_beexy_box();
-
         // Show item number
         test_page_overlay.show_prompt(
                 TEST_QUESTION + "\n\n" +
@@ -498,8 +545,7 @@ Page test_page
             string(item.id) + "  " +
             // string(item.entropy) + "  " +
             //string(item.language) + "  " +
-            item.fn1 + "  " +
-            item.fn2; 
+            item.fn;
 
         control.set_status(status);
 
@@ -507,322 +553,3 @@ Page test_page
         target = caller;
     }
 }
-
-Page confidence_page
-{
-
-    init()
-    {
-        fill_pattern_color = TEST_PAGE_COLOR;
-    }
-
-    VerticalLayout layout
-    {
-        init()
-        {
-            spacing = 50;
-            height = 0;     // 0 means as large as possible
-        }
-
-        CanvasGadget canvas
-        {
-            init()
-            {
-                size = 800, 100;
-            }
-
-            TextShape question
-            {
-                init()
-                {
-                    fancy_text          = CONFIDENCE_QUESTION;
-                    font_family         = TEST_PAGE_PROMPT_FONT_FAMILY;
-                    font_size           = TEST_PAGE_PROMPT_FONT_SIZE;
-                    line_pattern_color  = TEST_PAGE_PROMPT_TEXT_COLOR;
-                }
-
-                start() {
-                    layout.grid.is_visible = true;
-                }
-            }
-
-            time action (time tref)
-            {
-                question.start(tref);
-                return question.expected_start_time;
-            }
-        }
-
-        HorGridLayout grid
-        {
-            init()
-            {
-                is_visible = false;
-                hor_spacing = 10;
-                ver_spacing = 10;
-                wrap_count = 6;
-                options = LAYOUT_EQUAL_WIDTH | LAYOUT_EQUAL_HEIGHT;
-            }
-
-            LabelGadget l1
-            {
-                init()
-                {
-                    text = "Onzeker";
-                    font_family = TEST_PAGE_PROMPT_FONT_FAMILY;
-                    font_size = TEST_PAGE_PROMPT_FONT_SIZE;
-                    text_color = TEST_PAGE_PROMPT_TEXT_COLOR;
-                }
-            }
-
-            // These are added to align the buttons with the labels
-            Spacer {}
-            Spacer {}
-            Spacer {}
-            Spacer {}
-
-            LabelGadget l2
-            {
-                init()
-                {
-                    text = "Zeker";
-                    font_family = TEST_PAGE_PROMPT_FONT_FAMILY;
-                    font_size = TEST_PAGE_PROMPT_FONT_SIZE;
-                    text_color = TEST_PAGE_PROMPT_TEXT_COLOR;
-                }
-            }
-
-            ButtonGadget b1
-            {
-                int value = 1;
-
-                init()
-                {
-                    text = string(value);
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                }
-
-                activate()
-                {
-                    confidence_page.response.process_hit(value, event_time);
-                }
-            }
-
-            ButtonGadget b2
-            {
-                int value = 2;
-
-                init()
-                {
-                    text = string(value);
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                }
-
-                activate()
-                {
-                    confidence_page.response.process_hit(value, event_time);
-                }
-            }
-
-            ButtonGadget b3
-            {
-                int value = 3;
-
-                init()
-                {
-                    text = string(value);
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                }
-
-                activate()
-                {
-                    confidence_page.response.process_hit(value, event_time);
-                }
-            }
-
-            ButtonGadget b4
-            {
-                int value = 4;
-
-                init()
-                {
-                    text = string(value);
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                }
-
-                activate()
-                {
-                    confidence_page.response.process_hit(value, event_time);
-                }
-            }
-
-            ButtonGadget b5
-            {
-                int value = 5;
-
-                init()
-                {
-                    text = string(value);
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                }
-
-                activate()
-                {
-                    confidence_page.response.process_hit(value, event_time);
-                }
-            }
-            
-            ButtonGadget b6
-            {
-                int value = 6;
-
-                init()
-                {
-                    text = string(value);
-                    fill_pattern_color = TEST_PAGE_BUTTON_COLOR;
-                    font_family = TEST_PAGE_BUTTON_FONT_FAMILY;
-                    font_size = TEST_PAGE_BUTTON_FONT_SIZE;
-                    text_color = TEST_PAGE_BUTTON_TEXT_COLOR;
-                }
-
-                activate()
-                {
-                    confidence_page.response.process_hit(value, event_time);
-                }
-            }
-        }
-
-        time action(time tstart)
-        {
-            return layout.canvas.action(tstart);
-        }
-
-        void reset()
-        {
-            layout.is_visible = false;
-            full_abort();
-        }
-    }
-
-    Response response
-    {
-        // Response data.
-        int     value;          // response value: 1=uncertain 2, 3, 4, 5=certain, -1=timeout
-        int     rt;             // response time [ms]
-
-        void clear()
-        {
-            value = -1;
-            rt = -9999;
-        }
-
-
-        void process_hit(int val, time t)
-        {
-            HitType validity = hit(t);
-
-            // Accept the first hit in the response interval and end the
-            // response interval.
-            if (validity == HIT_VALID)
-            {
-                value = val;
-                rt = int(reaction_time(0));
-                ignore_remaining_hits();
-
-                stop();
-            }
-            else if (validity == HIT_TOO_EARLY || validity == HIT_TOO_LATE)
-            {
-                // False alarm. Deal with this if desired.
-            }
-        }
-
-        on_event:finish()
-        {
-            done(CONTINUE);
-        }
-    }
-
-    // Aborts any ongoing activity on this page and signals the initiator
-    // of the trial that we're done.
-    void done(int msgid)
-    {
-        // Just in case; abort presentation if still active.
-        layout.reset();
-
-        signal_target(msgid);   // tell caller we're done
-        target = null;
-
-        control.clear_status();
-    }
-
-
-    //==========================================================================
-
-
-    // Performs preparatory work required before using this page.
-    void setup(int ntrials=-1)
-    {
-        test_page_overlay.setup(this);
-
-        // Show item number
-        test_page_overlay.show_prompt("" + ntrials + " items", true);
-
-        // Enable or disable the progress bar.
-        // test_page_overlay.show_progress_bar(ntrials);   // disabled if < 0
-
-        control.clear_status();
-    }
-
-
-    // Performs cleaning up if necessary.
-    void cleanup()
-    {
-        test_page_overlay.cleanup();
-    }
-
-
-    // Starts a trial.
-    void action(Object caller, time tref)
-    {
-        // Show this page (if not yet done) and make tref the trial start time.
-        tref = test_window1.show_test_page(this, tref + INTERTRIAL_INTERVAL);
-
-        layout.is_visible = true;
-
-        time resp_start = layout.action(tref);
-
-        // make the response active
-        response.start(resp_start);
-
-        // Show item number
-        test_page_overlay.show_prompt("", true);
-
-        // Update progress counter (if enabled).
-        // test_page_overlay.update_progress_bar(count);
-
-        // Update status line on control window. Cleared in done() above.
-        string status = "Confidence " + ": ";
-
-        control.set_status(status);
-
-        // Remember who to signal when the trial is over.
-        target = caller;
-    }
-}
-

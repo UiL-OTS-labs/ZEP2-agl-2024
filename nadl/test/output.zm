@@ -17,7 +17,7 @@ HISTORY:
 // Test output table record.
 record TestOutput
 {
-    string         step;           // test number
+    string         step;           // training / test
     int            trial;          // trial number
 
     int            id;             // item id
@@ -30,14 +30,8 @@ record TestOutput
     TestGroup      grp;
     string         fn;             // stimulus string sound filename // or training stimulus
 
-    int            value;          // response value: 0=no, 1=yes, -1=timeout
+    int            rating;         // response value: value from 0 <= value <= 5
     int            rt;             // response time [ms]
-    int            correct;        // correct response: 0=no, 1=yes, -1=n.a.
-    int            atype;          // answer type - compiled from value (participant answer) and correct
-
-    int            confidence;     // The confidence in the answer of the participant
-                                   // 1 zeker 2, 3, 4, 5 onzeker
-    int            confidence_rt;  // The response_time of the participant 
 }
 
 
@@ -45,9 +39,9 @@ record TestOutput
 
 
 // Appends one row of data to test output table.
-void test_output_append(TestOutput data)
+void training_output_append(TestOutput data)
 {
-    expdb.add_trial_data_record(namespace_name, "1", "Test Resuts:");
+    expdb.add_trial_data_record(namespace_name, "1", "Training Results:");
 
     expdb.set_trial_data_string_field("step", data.step);
     expdb.set_trial_data_int_field("trial", data.trial);
@@ -58,17 +52,34 @@ void test_output_append(TestOutput data)
 
     expdb.set_trial_data_enum_field("entropy", string(data.entropy));
     expdb.set_trial_data_enum_field("language", string(data.language));
-    expdb.set_trial_data_enum_field("group", string(data.grp));
 
+    expdb.set_trial_data_enum_field("group", string(data.grp));
     expdb.set_trial_data_string_field("fn", data.fn);
 
-    expdb.set_trial_data_int_field("value", data.value);
+    expdb.set_trial_data_int_field("rating", data.rating);
     expdb.set_trial_data_int_field("rt", data.rt);
-    expdb.set_trial_data_int_field("correct", data.correct);
-    expdb.set_trial_data_int_field("atype", data.atype);
+}
 
-    expdb.set_trial_data_int_field("confidence", data.confidence);
-    expdb.set_trial_data_int_field("confidence_rt", data.confidence_rt);
+// Appends one row of data to test output table.
+void test_output_append(TestOutput data)
+{
+    expdb.add_trial_data_record(namespace_name, "2", "Test Results:");
+
+    expdb.set_trial_data_string_field("step", data.step);
+    expdb.set_trial_data_int_field("trial", data.trial);
+
+    expdb.set_trial_data_int_field("id", data.id);
+    expdb.set_trial_data_int_field("nth_rep", data.nth_rep);
+    expdb.set_trial_data_int_field("block", data.block);
+
+    expdb.set_trial_data_enum_field("entropy", string(data.entropy));
+    expdb.set_trial_data_enum_field("language", string(data.language));
+
+    expdb.set_trial_data_enum_field("group", string(data.grp));
+    expdb.set_trial_data_string_field("fn", data.fn);
+
+    expdb.set_trial_data_int_field("rating", data.rating);
+    expdb.set_trial_data_int_field("rt", data.rt);
 }
 
 

@@ -123,10 +123,9 @@ Block task
                     output.entropy = item.entropy;
                     output.language = item.language;
                     output.fn = item.sndfn;
-                    output.value = -1;
+                    output.rating = -1;
                     output.rt = -1;
-                    output.correct = -1;
-                    test_output_append(output);
+                    training_output_append(output);
                 }
             }
         }
@@ -171,8 +170,6 @@ Block task
         {
             TestItem        item;   // current item
             TestItem[]      test_items;
-            TestOutput      output;
-
 
             entry()
             {
@@ -211,20 +208,24 @@ Block task
 
                 exit()
                 {
-                    // Create a fresh test output
                     TestOutput output;
                     output.step = "test";
-                    output.grp = selected_group;
                     output.trial = test.cycle + 1;
-                    output.id = item.id;
-                    output.block = training_test_repetitions.cycle + 1;
-                    output.entropy = chosen_entropy;
-                    output.language = chosen_language;
-                    output.fn = item.fn;
-                    output.value = test_page.response.value;
-                    output.rt = test_page.response.rt;
 
-                    test.output = output;
+                    output.id       = item.id;
+                    output.nth_rep  = training_test_repetitions.cycle + 1;
+                    output.block    = training_test_repetitions.cycle + 1;
+
+                    output.entropy  = chosen_entropy;
+                    output.language = chosen_language;
+
+                    output.grp      = selected_group;
+                    output.fn       = item.fn;
+
+                    output.rating   = test_page.response.value;
+                    output.rt       = test_page.response.rt;
+
+                    test_output_append(output);
                 }
             }
         }

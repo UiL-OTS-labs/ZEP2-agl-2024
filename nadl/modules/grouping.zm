@@ -17,10 +17,16 @@ HISTORY:
 // Symbolic definition of groups.
 enum TestGroup
 {
-    lo_l1,        // low entropy language l2
-    lo_l2,        // low entropy language l1
-    hi_l1,        // high entropy language l1
-    hi_l2,        // high entropy language l2
+    // Counter balance order A
+    lo_l1_cba,        // low entropy language l2
+    lo_l2_cba,        // low entropy language l1
+    hi_l1_cba,        // high entropy language l1
+    hi_l2_cba,        // high entropy language l2
+    // Counter balance order B
+    lo_l1_cbb,        // low entropy language l2
+    lo_l2_cbb,        // low entropy language l1
+    hi_l1_cbb,        // high entropy language l1
+    hi_l2_cbb,        // high entropy language l2
 }
  
  

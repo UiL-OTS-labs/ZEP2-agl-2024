@@ -78,7 +78,7 @@ Block task
 
             entry()
             {
-                num_cycles = training_items1.size;
+
                 if (training_test_repetitions.cycle == 0)
                     train_items = training_items1;
                 else if (training_test_repetitions.cycle == 1)
@@ -89,6 +89,8 @@ Block task
                     train_items = null;
 
                 num_cycles = train_items.size;
+                if (have_flag("short"))
+                    num_cycles = 6;
 
                 // Prepare test page: progress bar, feedback and prompt enabled.
                 train_page.setup(num_cycles);
@@ -113,13 +115,14 @@ Block task
                 {
                     // Add new row to test output table.
                     TestOutput output;
-                    output.step = "training" + (training_test_repetitions.cycle + 1);
+                    output.step = "training";
                     output.grp = selected_group;
                     output.trial = training.cycle + 1;
                     output.id = item.id;
+                    output.block = item.block;
                     output.entropy = item.entropy;
                     output.language = item.language;
-                    output.fn1 = item.sndfn;
+                    output.fn = item.sndfn;
                     output.value = -1;
                     output.rt = -1;
                     output.correct = -1;
@@ -210,43 +213,18 @@ Block task
                 {
                     // Create a fresh test output
                     TestOutput output;
-                    output.step = "test" + (training_test_repetitions.cycle + 1);
+                    output.step = "test";
                     output.grp = selected_group;
                     output.trial = test.cycle + 1;
                     output.id = item.id;
+                    output.block = training_test_repetitions.cycle + 1;
                     output.entropy = chosen_entropy;
                     output.language = chosen_language;
-                    output.fn1 = item.fn1;
-                    output.fn2 = item.fn2;
+                    output.fn = item.fn;
                     output.value = test_page.response.value;
                     output.rt = test_page.response.rt;
-                    output.correct = test_page.response.correct;
 
                     test.output = output;
-                }
-            }
-
-//            Part
-//            {
-//                on_event:entry()
-//                {
-//                    blank_page.action_auto(this, 500ms);
-//                }
-//            }
-
-            Trial confidence
-            {
-                entry()
-                {
-                    confidence_page.action(this, event_time);
-                }
-
-                exit()
-                {
-                    test.output.confidence = confidence_page.response.value;
-                    test.output.confidence_rt = confidence_page.response.rt;
-
-                    test_output_append(test.output);
                 }
             }
         }

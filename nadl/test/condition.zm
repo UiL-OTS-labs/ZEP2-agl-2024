@@ -21,24 +21,50 @@ enum CondTestStims {
     STIM_NEW
 };
 
+enum CondCB{ // CounterBalance
+    CBA,
+    CBB
+}
+
 CondEntropy     chosen_entropy;
 CondLang        chosen_language;
+CondCB          chosen_cb_order;
 
 void init_conditions_from_test_group(TestGroup group) {
-    if (group == lo_l1 || group == lo_l2)
-        chosen_entropy = EN_LOW;
-    else
-        chosen_entropy = EN_HIGH;
+    if (group == lo_l1_cba ||
+        group == hi_l1_cba ||
+        group == lo_l2_cba ||
+        group == lo_l2_cba)
+    {
+        chosen_cb_order = CBA;
+        if (group == lo_l1_cba || group == lo_l2_cba)
+            chosen_entropy = EN_LOW;
+        else
+            chosen_entropy = EN_HIGH;
 
-    if (group == lo_l1 || group == hi_l1)
-        chosen_language = LANG_L1;
-    else
-        chosen_language = LANG_L2;
+        if (group == lo_l1_cba || group == hi_l1_cba)
+            chosen_language = LANG_L1;
+        else
+            chosen_language = LANG_L2;
+    }
+    else {
+        chosen_cb_order = CBB;
+        if (group == lo_l1_cba || group == lo_l2_cba)
+            chosen_entropy = EN_LOW;
+        else
+            chosen_entropy = EN_HIGH;
+
+        if (group == lo_l1_cba || group == hi_l1_cba)
+            chosen_language = LANG_L1;
+        else
+            chosen_language = LANG_L2;
+    }
 }
 
 
 void print_chosen_conditions(TestGroup group) {
     println("chosen_entropy = " + chosen_entropy);
     println("chosen_language = " + chosen_language);
+    println("chosen_counter_balance_order = " + chosen_cb_order);
 }
 

@@ -89,7 +89,7 @@ Block task
                     train_items = null;
 
                 num_cycles = train_items.size;
-                if (have_flag("short"))
+                if (have_flag("short")) // debugging only
                     num_cycles = 6;
 
                 // Prepare test page: progress bar, feedback and prompt enabled.
@@ -116,13 +116,18 @@ Block task
                     // Add new row to test output table.
                     TestOutput output;
                     output.step = "training";
-                    output.grp = selected_group;
                     output.trial = training.cycle + 1;
+
                     output.id = item.id;
+                    output.nth_rep = item.nth_rep;
                     output.block = item.block;
+
                     output.entropy = item.entropy;
                     output.language = item.language;
+
+                    output.grp = selected_group;
                     output.fn = item.sndfn;
+
                     output.rating = -1;
                     output.rt = -1;
                     training_output_append(output);

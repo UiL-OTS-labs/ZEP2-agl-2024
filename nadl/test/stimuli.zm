@@ -31,15 +31,15 @@ record TrainItem
 void print_train_items(TrainItem[] items, bool header) {
     int i = 0;
     if (header)
-        println("id block nth_repetition entropy language sound_file");
+        println("id\tblock\tnth_rep\tentropy\tlanguage\tword");
 
     while (i < items.size) {
         TrainItem it = items[i];
-        println("" + it.id + " "
-                   + it.block + " "
-                   + it.nth_rep + " "
-                   + it.entropy + " "
-                   + it.language + " "
+        println("" + it.id + "\t"
+                   + it.block + "\t"
+                   + it.nth_rep + "\t"
+                   + it.entropy + "\t"
+                   + it.language + "\t"
                    + it.sndfn
                );
         i++;
@@ -299,7 +299,6 @@ train_items_append_block(TrainItem[] output, TrainItem[] input, int block) {
         while (i < input.size) {
             TrainItem item = input[i];
             item.block = block;
-            item.nth_rep = 1;
             append_train_item(output, item);
             i++;
         }
@@ -309,7 +308,6 @@ train_items_append_block(TrainItem[] output, TrainItem[] input, int block) {
         while (i < input.size) {
             TrainItem item = input[i];
             item.block = block;
-            item.nth_rep = 2;
             append_train_item(output, item);
             i++;
         }
@@ -320,6 +318,26 @@ train_items_append_block(TrainItem[] output, TrainItem[] input, int block) {
     return meets_constraints;
 }
 
+// If we only had associative arrays...
+void
+count_repetitions(TrainItem[] items)
+{
+    int i = 0;
+    while (i < items.size) {
+        string needle = items[i].sndfn;
+        int j = 0;
+        int num_found = 0;
+        while (j <= i) { // Count the needle too.
+            if (needle == items[j].sndfn) {
+                num_found++;
+            }
+            j++;
+        }
+        items[i].nth_rep = num_found;
+        i++;
+    }
+}
+
 /*
  * Distributes all training items over the three separate lists/blocks
  */
@@ -327,6 +345,9 @@ void prepare_training_lists(TrainItem[] input) {
     train_items_append_block(training_items1, input, 1);
     train_items_append_block(training_items2, input, 2);
     train_items_append_block(training_items3, input, 3);
+    count_repetitions(training_items1);
+    count_repetitions(training_items2);
+    count_repetitions(training_items3);
 }
 
 /*

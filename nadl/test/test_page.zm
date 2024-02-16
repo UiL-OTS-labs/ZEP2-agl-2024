@@ -267,7 +267,7 @@ Page test_page
                 options = LAYOUT_EQUAL_WIDTH | LAYOUT_EQUAL_HEIGHT;
             }
 
-            LabelGadget l1
+            LabelGadget l1 // for now put to invisible to maintain the old layout
             {
                 init()
                 {
@@ -275,6 +275,7 @@ Page test_page
                     font_family = TEST_PAGE_PROMPT_FONT_FAMILY;
                     font_size = TEST_PAGE_PROMPT_FONT_SIZE;
                     text_color = TEST_PAGE_PROMPT_TEXT_COLOR;
+                    is_visible = false;
                 }
             }
 
@@ -283,7 +284,7 @@ Page test_page
             Spacer {}
             Spacer {}
 
-            LabelGadget l2
+            LabelGadget l2 // for now put to invisible to maintain the old layout
             {
                 init()
                 {
@@ -291,6 +292,7 @@ Page test_page
                     font_family = TEST_PAGE_PROMPT_FONT_FAMILY;
                     font_size = TEST_PAGE_PROMPT_FONT_SIZE;
                     text_color = TEST_PAGE_PROMPT_TEXT_COLOR;
+                    is_visible = false;
                 }
             }
 
@@ -533,7 +535,8 @@ Page test_page
         // Show item number
         test_page_overlay.show_prompt(
                 TEST_QUESTION + "\n\n" +
-                (nth_trial + 1) + " / " + (this.num_trials),
+                (nth_trial + 1) + " / " + (this.num_trials) + "\n\n" +
+                TEST_RESP_TABLE,
                 true);
 
         // Start stimulus

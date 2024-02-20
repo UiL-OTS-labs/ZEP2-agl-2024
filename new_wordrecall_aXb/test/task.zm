@@ -1,0 +1,88 @@
+
+import stimuli;
+import output;
+import shuffle;
+
+Block task
+{
+
+    Part instructions_X
+    {
+        on_event:entry()
+        {
+//            pause_page.set_text_size(1000, 600);
+            pause_page.set_text(
+                "<b>Woorden van de Eerste Luistertaak</b>\n"
+                "\n"
+                "Je ziet nu tweelettergrepige woorden een voor een verschijnen op het scherm."
+                "Geef voor ieder woord zo snel en accuraat mogelijk aan of je het woord"
+                "gehoord hebt tijdens de <i> eerste luistertaak </i> of niet. \n"
+                "\n"
+                "Als je het woord gehoord hebt klik je op <i>YES</i>. "
+                "\n"
+                "Als niet, klik dan op <i>NO</i>. \n"
+                "\n"
+                "<i> Druk CONTINUE om de test te beginnen.</i>", 
+                true);
+
+            pause_page.action(this);
+            control.enable_all_buttons(CONTINUE);
+        }
+    }
+
+
+    Block test
+    {
+        TestItem        item;   // current item
+
+
+        on_event:entry()
+        {
+            if (shuffle_test_items() != OK) terminate;
+
+            num_cycles = test_items.size;
+
+            // Prepare test page: progress bar enabled, feedback and prompt 
+            // disabled.
+            test_page.setup(num_cycles, false, false);
+        }
+
+
+        on_event:exit()
+        {
+            test_page.cleanup();
+        }
+
+
+        Trial trial
+        {
+            on_event:entry()
+            {
+                item = test_items[test.cycle];
+
+                test_page.action(this, item, reference_time, test.cycle);
+            }
+
+
+            on_event:exit()
+            {
+                // Add new row to test output table.
+                TestOutput output;
+                output.trialnum = test.cycle + 1;
+                output.id = item.id;
+                output.type = item.type;
+                output.word = item.word;
+                output.value = test_page.response.value;
+                output.rt = test_page.response.rt;
+                output.correct = test_page.response.correct;
+                output.atype = test_page.response.atype;
+                test_output_append(output);
+            }
+        }
+    }
+}
+
+void action (Part caller)
+{
+    task.enter(caller);
+}

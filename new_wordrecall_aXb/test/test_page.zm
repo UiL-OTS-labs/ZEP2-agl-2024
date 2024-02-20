@@ -14,6 +14,8 @@ HISTORY:
 
 \******************************************************************************/
 
+import stimuli;
+import defs;
 
 Page test_page
 {
@@ -276,9 +278,9 @@ Page test_page
 
         // Enable button-box buttons 0 and 1 for resp. no(0) and yes(1).
         control.target = this;
-        control.button_box.disable_buttons();
-        control.button_box.enable_button(0, 0); // button 0 means no(0)
-        control.button_box.enable_button(1, 1); // button 1 means yes(1)
+        control.disable_buttons();
+        control.enable_button(0, 0); // button 0 means no(0)
+        control.enable_button(1, 1); // button 1 means yes(1)
     }
 
 
@@ -287,7 +289,7 @@ Page test_page
     {
         test_page_overlay.cleanup();
 
-        control.button_box.disable_buttons();
+        control.disable_buttons();
         control.target = null;
     }
 

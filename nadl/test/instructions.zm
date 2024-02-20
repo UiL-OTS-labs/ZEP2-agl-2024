@@ -1,6 +1,6 @@
 
 const string PRE_TRAIN_INSTRUCTION = 
-	"In dit eerste deel van het onderzoek krijg je een buitenaardse taal te horen!\n\n"
+	"In dit eerste deel van het onderzoek krijg je een fantasie taal te horen!\n\n"
 	"Er zijn in totaal drie fases (3 minuten/fase). Tijdens elke fase hoor je "
 	"klankenreeksen die representatief zijn voor deze taal.\n\n"
 	"Na elke fase volgt een korte test: je krijgt enkele klankenreeksen te horen "
@@ -11,15 +11,15 @@ const string PRE_TRAIN_INSTRUCTION =
     "verder te gaan.";
 
 const string PRE_TRAIN_INSTRUCTION_SHORT = 
-    "Je gaat nu verder met het luisteren naar klankenreeksen uit de buitenaardse taal.\n"
+    "Je gaat nu verder met het luisteren naar klankenreeksen uit de fantasie taal.\n"
     "Druk op <b>start</b> om verder te gaan.";
 
-const string TRAIN_PROMPT = "Luister naar de buitenaardse klankenreeksen.";
+const string TRAIN_PROMPT = "Luister naar de fantasie klankenreeksen.";
 
 const string PRE_TEST_INSTRUCTION = 
     "Je gaat nu een aantal vragen beantwoorden.\n\n"
     "Je krijgt een aantal woorden te horen. Geef voor elke klankenreeks "
-    "aan hoe waarschijnlijk het is dat deze uit de buitenaardse taal komt "
+    "aan hoe waarschijnlijk het is dat deze uit de fantasie taal komt "
     "die je net hebt gehoord.\n\n"
     "Niet alle woorden in deze test zijn voorgekomen in de taal die je net "
     "hoorde, maar je kunt nog steeds het woord selecteren dat het meest "
@@ -32,7 +32,7 @@ const string PRE_TEST_INSTRUCTION_SHORT =
 
 const string TEST_QUESTION = 
     "Geef aan hoe waarschijnlijk het is dat deze klankenreeks uit de "
-    "buitenaardse taal komt.";
+    "fantasie taal komt.";
 
 const string TEST_RESP_TABLE = 
     "1: zeer onwaarschijnlijk\n"

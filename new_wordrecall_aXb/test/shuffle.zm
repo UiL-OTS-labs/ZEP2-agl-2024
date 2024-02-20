@@ -15,17 +15,10 @@ HISTORY:
 
 
 // Shuffles test_items table (no restrictions on item order).
-int shuffle_test_items_X()
+int shuffle_test_items()
 {
-    test_items_X.shuffle(0, -1);
+    test_items.shuffle(0, -1);
 
     return OK;
 }
 
-// Shuffles test_items table (no restrictions on item order).
-int shuffle_test_items_ab()
-{
-    test_items_ab.shuffle(0, -1);
-
-    return OK;
-}

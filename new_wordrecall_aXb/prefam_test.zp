@@ -1,0 +1,274 @@
+/******************************************************************************\
+FILE:           vislexdec.zp
+AUTHOR:         Theo Veenker (UiL-OTS) <T.J.G.Veenker@uu.nl>
+ADAPTED BY:     -
+
+EXPERIMENT:     Visual Lexical Decision
+
+DESCRIPTION:
+
+Purpose of this experiment is to measure how quickly participants
+can classify stimuli as words or nonwords. For each trial a word
+is presented on the screen. Participant's task is to hit a yes-button
+for a known word and the no-button for an unknown word (non-word).
+Auto-paced. Output: RT and correctness.
+
+
+Global structure of experiment:
+
+  - welcome
+
+  - instructions
+
+  - practice phase (... trials)
+      trial
+
+  - pause
+
+  - test phase (... trials)
+      trial
+
+  - thankyou
+
+
+HISTORY:
+2011-10-25 TV   Created.
+
+\******************************************************************************/
+
+requires 1.17;
+
+import std_windows1;
+import std_texts_en;
+import std_entry_page1;
+import std_exit_page1;
+import std_pause_page;
+import std_blank_page;
+import shuffle;
+
+import test_page;
+
+
+Experiment experiment
+{
+    on_event:entry()
+    {
+        show_test_windows();
+
+        control.button_box.open();
+
+        // If necessary set parallel port line D0 to power button box device.
+//        control.button_box.output(0x02);
+    }
+
+
+    Part welcome
+    {
+        on_event:entry()
+        {
+            entry_page.set_text(WELCOME_TEXT);
+            entry_page.action(this, 0s);
+        }
+    }
+
+
+    Part instructions_X
+    {
+        on_event:entry()
+        {
+//            pause_page.set_text_size(1000, 600);
+            pause_page.set_text(
+                "<b>Woorden van de Eeerste Luistertaak</b>\n"
+                "\n"
+                "Je ziet nu tweelettergrepige woorden een voor een verschijnen op het scherm."
+                "Geef voor ieder woord zo snel en accuraat mogelijk aan of je het woord"
+                "gehoord hebt tijdens de <i> eerste luistertaak </i> of niet. \n"
+                "\n"
+                "Als je het woord gehoord hebt klik je op <i>YES</i>. "
+                "\n"
+                "Als niet, klik dan op <i>NO</i>. \n"
+                "\n"
+
+//                "To respond, hit the left shift key for <i>No</i> and the "
+//                "right shift key for <i>Yes</i>.\n"
+
+//                "To respond, hit the left button on the button-box for "
+//                "<i>No</i> and the right button for <i>Yes</i>. "
+//                "Alternatively you can use the left or right shift keys.\n"
+
+
+                "<i> Druk CONTINUE om de test te beginnen.</i>", 
+                true);
+
+            pause_page.action(this);
+            control.button_box.enable_all_buttons(CONTINUE);
+        }
+    }
+
+
+    Block test_X
+    {
+        TestItem        item;   // current item
+
+
+        on_event:entry()
+        {
+// Randomize test items table.
+            if (shuffle_test_items_X() != OK) terminate;
+
+            num_cycles = test_items_X.size;
+            //num_cycles = 3;
+
+            // Prepare test page: progress bar enabled, feedback and prompt 
+            // disabled.
+            test_page.setup(num_cycles, false, false);
+        }
+
+
+        on_event:exit()
+        {
+            test_page.cleanup();
+
+            // Save test phase output table as CSV file.
+            test_output_save();
+        }
+
+
+        Trial trial
+        {
+            on_event:entry()
+            {
+                item = test_items_X[test_X.cycle];
+
+                test_page.action(this, item, reference_time, test_X.cycle);
+            }
+
+
+            on_event:exit()
+            {
+                // Add new row to test output table.
+                TestOutput output;
+                output.trialnum = test_X.cycle + 1;
+                output.id = item.id;
+                output.type = item.type;
+                output.word = item.word;
+                output.value = test_page.response.value;
+                output.rt = test_page.response.rt;
+                output.correct = test_page.response.correct;
+                output.atype = test_page.response.atype;
+                test_output_append(output);
+            }
+        }
+    }
+
+
+    Part instructions_ab
+    {
+        on_event:entry()
+        {
+//            pause_page.set_text_size(1000, 600);
+            pause_page.set_text(
+                "<b>Woorden van de Eeerste Luistertaak</b>\n"
+                "\n"
+                "Je ziet nu EENLETTERGREPIGE woorden een voor een verschijnen op het scherm."
+                "Geef voor ieder woord zo snel en accuraat mogelijk aan of je het woord"
+                "gehoord hebt tijdens de <i> eerste luistertaak </i> of niet. \n"
+                "\n"
+                "Als je het woord gehoord hebt klik je op <i>YES</i>. "
+                "\n"
+                "Als niet, klik dan op <i>NO</i>. \n"
+                "\n"
+
+//                "To respond, hit the left shift key for <i>No</i> and the "
+//                "right shift key for <i>Yes</i>.\n"
+
+//                "To respond, hit the left button on the button-box for "
+//                "<i>No</i> and the right button for <i>Yes</i>. "
+//                "Alternatively you can use the left or right shift keys.\n"
+
+
+                "<i> Druk CONTINUE om de test te beginnen.</i>", 
+                true);
+
+            pause_page.action(this);
+            control.button_box.enable_all_buttons(CONTINUE);
+        }
+    }
+
+
+    Block test_ab
+    {
+        TestItem        item;   // current item
+
+
+        on_event:entry()
+        {
+// Randomize test items table.
+            if (shuffle_test_items_ab() != OK) terminate;
+
+            num_cycles = test_items_ab.size;
+            //num_cycles = 3;
+
+            // Prepare test page: progress bar enabled, feedback and prompt 
+            // disabled.
+            test_page.setup(num_cycles, false, false);
+        }
+
+
+        on_event:exit()
+        {
+            test_page.cleanup();
+
+            // Save test phase output table as CSV file.
+            test_output_save();
+        }
+
+
+        Trial trial
+        {
+            on_event:entry()
+            {
+                item = test_items_ab[test_ab.cycle];
+
+                test_page.action(this, item, reference_time, test_ab.cycle);
+            }
+
+
+            on_event:exit()
+            {
+                // Add new row to test output table.
+                TestOutput output;
+                output.trialnum = test_ab.cycle + 1;
+                output.id = item.id;
+                output.type = item.type;
+                output.word = item.word;
+                output.value = test_page.response.value;
+                output.rt = test_page.response.rt;
+                output.correct = test_page.response.correct;
+                output.atype = test_page.response.atype;
+                test_output_append(output);
+            }
+        }
+    }
+
+
+    Part
+    {
+        on_event:entry()
+        {
+            blank_page.action_auto(this, 500ms, 500ms);
+        }
+    }
+
+
+    Part thankyou
+    {
+        on_event:entry()
+        {
+            control.end_experiment();   // Check-in session.
+
+            exit_page.set_text(THANK_YOU_TEXT);
+            exit_page.action(this, 10s);
+        }
+    }
+}

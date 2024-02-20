@@ -1,0 +1,84 @@
+/******************************************************************************\
+FILE:           stimuli.zm
+AUTHOR:         Theo Veenker (UiL-OTS) <T.J.G.Veenker@uu.nl>
+ADAPTED BY:     -
+
+DESCRIPTION:
+
+Defines the formats of item table(s) and provides the actual content of
+the item table(s) i.e. stimulus information.
+
+
+HISTORY:
+2011-10-25 TV   Created.
+
+\******************************************************************************/
+
+
+// Symbolic definition of item type.
+enum ItemType
+{
+    NON_WORD,                   // non-word
+    REAL_WORD,                  // real word
+}
+
+
+// Item record used for the test phase item table.
+record TestItem
+{
+    int         id;             // item id
+    ItemType    type;           // item type
+    string      word;           // stimulus word
+}
+
+
+// Item table used in the test phase.
+//   index: item number
+TestItem[..] test_items_X =
+{
+    {1,         REAL_WORD,       "MOVIG"},
+    {2,         REAL_WORD,       "WABO"},
+    {3,         REAL_WORD,       "NIJFOE"},
+    {4,         REAL_WORD,       "SETA"},
+    {5,         REAL_WORD,      "KENGEL"},
+    {6,         REAL_WORD,      "ROGGES"},
+    {7,         REAL_WORD,      "DUFO"},
+    {8,         REAL_WORD,      "NOEBA"},
+    {9,         REAL_WORD,      "KIJBOG"},
+    {10,         REAL_WORD,      "SNIGGER"},
+    {11,         REAL_WORD,      "FIDANG"},
+    {12,         REAL_WORD,      "PLIZET"},
+    {13,         NON_WORD,      "NASFU"},
+    {14,         NON_WORD,      "LEEPOE"},
+    {15,         NON_WORD,      "GOBUR"},
+    {16,         NON_WORD,      "VAPEM"},
+    {17,         NON_WORD,      "RAFO"},
+    {18,         NON_WORD,      "POOJEE"},
+    {19,         NON_WORD,      "BLIEFOT"},
+    {20,         NON_WORD,      "PROEKER"},
+    {21,         NON_WORD,      "LOPIJ"},
+    {22,         NON_WORD,      "PIEGA"},
+    {23,         NON_WORD,      "MAZET"},
+    {24,         NON_WORD,      "SIELON"},
+
+};
+
+// Item table used in the test phase.
+//   index: item number
+TestItem[..] test_items_ab =
+{
+    {1,         REAL_WORD,       "TEP"},
+    {2,         REAL_WORD,       "SOT"},
+    {3,         REAL_WORD,       "RAK"},
+    {4,         REAL_WORD,       "LUT"},
+    {5,         REAL_WORD,      "JIK"},
+    {6,         REAL_WORD,      "TOEF"},
+    {7,         NON_WORD,      "FEP"},
+    {8,         NON_WORD,      "SOS"},
+    {9,         NON_WORD,      "RAUK"},
+    {10,         NON_WORD,      "LUM"},
+    {11,         NON_WORD,      "JOEK"},
+    {12,         NON_WORD,      "GOEF"},
+
+
+};

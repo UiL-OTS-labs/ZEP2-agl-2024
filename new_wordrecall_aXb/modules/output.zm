@@ -1,0 +1,57 @@
+/******************************************************************************\
+FILE:           output.zm
+AUTHOR:         Theo Veenker (UiL-OTS) <T.J.G.Veenker@uu.nl>
+ADAPTED BY:     -
+
+DESCRIPTION:
+
+Defines the formats of output table(s).
+
+
+HISTORY:
+2011-10-25 TV   Created.
+
+\******************************************************************************/
+
+
+// Test phase output table record, defining what is to be logged for
+// each trial.
+record TestOutput
+{
+    int         trialnum;       // trial number
+
+    int         id;             // item id
+    ItemType    type;           // item type
+    string      word;           // stimulus word
+
+    int         value;          // response value: 0=no, 1=yes, -1=timeout
+    int         rt;             // response time [ms]
+    int         correct;        // correct response: 0=no, 1=yes, -1=n.a.
+    int         atype;          // TBD
+}
+
+
+// Test phase output table.
+TestOutput[..] test_output;
+
+
+//------------------------------------------------------------------------------
+
+
+// Appends one row of data to test phase output table.
+void test_output_append(TestOutput data)
+{
+    test_output.size = test_output.size + 1;
+    test_output[test_output.size-1] = data;
+}
+
+
+// Writes test phase output table contents to CSV file and clears the table.
+void test_output_save()
+{
+    // Append table to CSV file (create if non-existent). The filename 
+    // format is: <dbname>/<dbnum>/<expname>/ses<sesid>-<tblnum>.csv
+    test_output.append(expdb.experiment.session.table_filename(1), 
+        "Test phase resultsi - " + " Participant: " + expdb.participant.id);
+    test_output.size = 0;
+}

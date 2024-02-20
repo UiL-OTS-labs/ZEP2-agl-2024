@@ -31,6 +31,5 @@ const string    SECOND_BUTTON_TEXT              = "Tweede";
 
 // Other texts.
 const string    WELCOME_TEXT                    = "Welkom!";
-const string    THANK_YOU_TEXT                  = "Dit is het einde van het onderzoek.\n\n"
-                                                  "Erg bedankt voor je deelname!";
+const string    THANK_YOU_TEXT                  = "Dit is het einde van deel 1";
 

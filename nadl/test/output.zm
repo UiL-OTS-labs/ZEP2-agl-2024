@@ -29,6 +29,7 @@ record TestOutput
 
     TestGroup      grp;
     string         fn;             // stimulus string sound filename // or training stimulus
+    TestType       type;           // The type of test stimulus
 
     int            rating;         // response value: value from 0 <= value <= 5
     int            rt;             // response time [ms]
@@ -55,6 +56,7 @@ void training_output_append(TestOutput data)
 
     expdb.set_trial_data_enum_field("group", string(data.grp));
     expdb.set_trial_data_string_field("fn", data.fn);
+    expdb.set_trial_data_enum_field("type", string(data.type));
 
     expdb.set_trial_data_int_field("rating", data.rating);
     expdb.set_trial_data_int_field("rt", data.rt);
@@ -77,6 +79,7 @@ void test_output_append(TestOutput data)
 
     expdb.set_trial_data_enum_field("group", string(data.grp));
     expdb.set_trial_data_string_field("fn", data.fn);
+    expdb.set_trial_data_enum_field("type", string(data.type));
 
     expdb.set_trial_data_int_field("rating", data.rating);
     expdb.set_trial_data_int_field("rt", data.rt);

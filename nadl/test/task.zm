@@ -188,6 +188,8 @@ Block task
                     terminate "Unexpected block";
 
                 num_cycles = test_items.size;
+                if (have_flag("short"))
+                    num_cycles = 3;
 
                 // Prepare test page: progress bar enabled, feedback and prompt
                 // disabled.
@@ -226,6 +228,7 @@ Block task
 
                     output.grp      = selected_group;
                     output.fn       = item.fn;
+                    output.type     = item.type;
 
                     output.rating   = test_page.response.value;
                     output.rt       = test_page.response.rt;

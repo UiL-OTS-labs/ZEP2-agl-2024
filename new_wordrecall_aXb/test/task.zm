@@ -75,7 +75,6 @@ Block task
                 output.value = test_page.response.value;
                 output.rt = test_page.response.rt;
                 output.correct = test_page.response.correct;
-                output.atype = test_page.response.atype;
                 test_output_append(output);
             }
         }

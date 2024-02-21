@@ -18,8 +18,8 @@ HISTORY:
 // Symbolic definition of item type.
 enum ItemType
 {
-    NON_WORD,                   // non-word
-    REAL_WORD,                  // real word
+    YES,
+    NO,
 }
 
 
@@ -36,29 +36,29 @@ record TestItem
 //   index: item number
 TestItem[..] test_items =
 {
-    {1,  REAL_WORD, "hog"},
-    {2,  REAL_WORD, "nit"},
-    {3,  REAL_WORD, "zuk"},
-    {4,  REAL_WORD, "huf"},
-    {5,  REAL_WORD, "jal"},
-    {6,  REAL_WORD, "jik"},
-    {7,  REAL_WORD, "nup"},
-    {8,  REAL_WORD, "rak"},
-    {9,  REAL_WORD, "toef"},
-    {10, REAL_WORD, "dul"},
-    {11, REAL_WORD, "ves"},
-    {12, REAL_WORD, "kof"},
+    {1,  YES, "hog"},
+    {2,  YES, "nit"},
+    {3,  YES, "zuk"},
+    {4,  YES, "huf"},
+    {5,  YES, "jal"},
+    {6,  YES, "jik"},
+    {7,  YES, "nup"},
+    {8,  YES, "rak"},
+    {9,  YES, "toef"},
+    {10, YES, "dul"},
+    {11, YES, "ves"},
+    {12, YES, "kof"},
 
-    {13, NON_WORD,  "fas"},
-    {14, NON_WORD,  "fef"},
-    {15, NON_WORD,  "kes"},
-    {16, NON_WORD,  "wom"},
-    {17, NON_WORD,  "gop"},
-    {18, NON_WORD,  "bim"},
-    {19, NON_WORD,  "duk"},
-    {20, NON_WORD,  "lug"},
-    {21, NON_WORD,  "kog"},
-    {22, NON_WORD,  "raf"},
-    {23, NON_WORD,  "peg"},
-    {24, NON_WORD,  "ket"},
+    {13, NO,  "fas"},
+    {14, NO,  "fef"},
+    {15, NO,  "kes"},
+    {16, NO,  "wom"},
+    {17, NO,  "gop"},
+    {18, NO,  "bim"},
+    {19, NO,  "duk"},
+    {20, NO,  "lug"},
+    {21, NO,  "kog"},
+    {22, NO,  "raf"},
+    {23, NO,  "peg"},
+    {24, NO,  "ket"},
 };

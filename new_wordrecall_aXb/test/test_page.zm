@@ -91,7 +91,6 @@ Page test_page
             }
         }
 
-
         HorizontalLayout buttons
         {
             init()
@@ -99,7 +98,6 @@ Page test_page
                 spacing = 50;
                 options = LAYOUT_EQUAL_WIDTH;
             }
-
 
             ButtonGadget button1
             {
@@ -116,10 +114,9 @@ Page test_page
 
                 on_event:activate()
                 {
-                    response.process_hit(1, event_time);
+                    response.process_hit(0, event_time);
                 }
             }
-
 
             ButtonGadget button2
             {
@@ -133,10 +130,9 @@ Page test_page
                     size = 150, 75;
                 }
 
-
                 on_event:activate()
                 {
-                    response.process_hit(0, event_time);
+                    response.process_hit(1, event_time);
                 }
             }
         }
@@ -174,15 +170,12 @@ Page test_page
         int     value;          // response value: 0=no, 1=yes, -1=timeout
         int     rt;             // response time [ms]
         int     correct;        // correct response: 0=no, 1=yes, -1=n.a.
-        int     atype;          // TBD
-
 
         void clear()
         {
             value = -1;
             rt = -9999;
             correct = -1;
-            atype = -1;
         }
 
 
@@ -196,23 +189,10 @@ Page test_page
             {
                 value = val;
                 rt = int(reaction_time(0));
-                correct = 
-                    (item.type != NON_WORD && val == 1) ||
-                    (item.type == NON_WORD && val == 0);
 
-                if (correct) {
-                    if (value == 1) {
-                        atype = 1;
-                    } else {
-                        atype = 2;
-                    }
-                } else {
-                    if (value == 1) {
-                        atype = 3;
-                    } else {
-                        atype = 4;
-                    }
-                }
+                correct = 
+                    (item.type == YES && val == 0) ||
+                    (item.type == NO  && val == 1);
 
                 ignore_remaining_hits();
 

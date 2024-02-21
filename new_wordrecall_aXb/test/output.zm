@@ -27,7 +27,6 @@ record TestOutput
     int         value;          // response value: 0=no, 1=yes, -1=timeout
     int         rt;             // response time [ms]
     int         correct;        // correct response: 0=no, 1=yes, -1=n.a.
-    int         atype;          // TBD
 }
 
 
@@ -48,6 +47,5 @@ void test_output_append(TestOutput data)
     expdb.set_trial_data_int_field("value", data.value);
     expdb.set_trial_data_int_field("rt", data.rt);
     expdb.set_trial_data_int_field("correct", data.correct);
-    expdb.set_trial_data_int_field("atype", data.atype);
 }
 

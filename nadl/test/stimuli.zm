@@ -3,12 +3,11 @@ import condition;
 
 enum TestType {
     TT_NA, // not applicable (trainings items)
-    TT_1A,
-    TT_1B,
-    TT_2A,
-    TT_2B,
-    TT_3A,
-    TT_3B
+    TT_1,
+    TT_2,
+    TT_3,
+    TT_4,
+    TT_5
 };
 
 enum ResponseType {
@@ -402,113 +401,75 @@ void print_test_items(TestItem[] items, bool header) {
 }
 
 // Test items L1
-TestItem[] test_items_l1_3a = {
-    {1, TT_3A, "3a.naf_hog_tep"},
-    {2, TT_3A, "3a.naf_nit_tep"},
-    {3, TT_3A, "3a.wop_hog_bif"},
-    {4, TT_3A, "3a.wop_nit_bif"},
-    {5, TT_3A, "3a.bap_hog_lut"},
-    {6, TT_3A, "3a.bap_nit_lut"},
-};
+TestItem[] test_items_l1_1 = {
+    {1, TT_1, "1.pem_huf_dos.wav"},
+    {2, TT_1, "1.pem_jal_dos.wav"},
+    {3, TT_1, "1.pem_jik_dos.wav"},
+    {4, TT_1, "1.pem_nup_dos.wav"},
+}
 
-TestItem[] test_items_l1_3b = {
-    {1, TT_3B, "3b.hog_bif_wop"},
-    {2, TT_3B, "3b.nit_lut_bap"},
-    {3, TT_3B, "3b.zuk_tep_naf"},
-    {4, TT_3B, "3b.tep_naf_hog"},
-    {5, TT_3B, "3b.bif_wop_nit"},
-    {6, TT_3B, "3b.lut_bap_zuk"},
-};
+TestItem[] test_items_l1_2 = {
+    {1, TT_2, "2.naf_bug_tep.wav"},
+    {2, TT_2, "2.naf_zim_tep.wav"},
+    {3, TT_2, "2.pem_bug_dos.wav"},
+    {4, TT_2, "2.pem_zim_dos.wav"},
+}
 
-TestItem[] test_items_l1_1a = {
-    {1, TT_1A, "1a.pem_huf_dos"},
-    {2, TT_1A, "1a.pem_jal_dos"},
-    {3, TT_1A, "1a.pem_jik_dos"},
-    {4, TT_1A, "1a.pem_nup_dos"},
-    {5, TT_1A, "1a.pem_rak_dos"},
-    {6, TT_1A, "1a.pem_toef_dos"},
-};
+TestItem[] test_items_l1_3 = {
+    {1, TT_3, "3.naf_hog_tep.wav"},
+    {2, TT_3, "3.naf_zuk_tep.wav"},
+    {3, TT_3, "3.wop_hog_bif.wav"},
+    {4, TT_3, "3.wop_zuk_bif.wav"},
+}
 
-TestItem[] test_items_l1_1b = {
-    {1, TT_1B, "1b.mip_huf_sot"},
-    {2, TT_1B, "1b.mip_jal_sot"},
-    {3, TT_1B, "1b.mip_jik_sot"},
-    {4, TT_1B, "1b.mip_nup_sot"},
-    {5, TT_1B, "1b.mip_rak_sot"},
-    {6, TT_1B, "1b.mip_toef_sot"},
-};
+TestItem[] test_items_l1_4 = {
+    {1, TT_4, "4.mip_huf_sot.wav"},
+    {2, TT_4, "4.mip_jik_sot.wav"},
+    {3, TT_4, "4.pem_kof_dos.wav"},
+    {4, TT_4, "4.pem_ves_dos.wav"},
+}
 
-TestItem[] test_items_l1_2a = {
-    {1, TT_2A, "2a.pem_bug_dos"},
-    {2, TT_2A, "2a.pem_gak_dos"},
-    {3, TT_2A, "2a.pem_zim_dos"},
-    {4, TT_2A, "2a.naf_bug_tep"},
-    {5, TT_2A, "2a.naf_gak_tep"},
-    {6, TT_2A, "2a.naf_zim_tep"},
-};
-
-TestItem[] test_items_l1_2b = {
-    {1, TT_2B, "2b.pem_dul_dos"},
-    {2, TT_2B, "2b.pem_ves_dos"},
-    {3, TT_2B, "2b.pem_kof_dos"},
-    {4, TT_2B, "2b.naf_dul_tep"},
-    {5, TT_2B, "2b.naf_ves_tep"},
-    {6, TT_2B, "2b.naf_kof_tep"},
+TestItem[] test_items_l1_5 = {
+    {1, TT_5, "5.bif_wop_zuk.wav"},
+    {2, TT_5, "5.hog_bif_wop.wav"},
+    {3, TT_5, "5.tep_naf_hog.wav"},
+    {4, TT_5, "5.zuk_tep_naf.wav"},
 };
 
 // Test items L2
-TestItem[] test_items_l2_1a = {
-    {1, TT_1A, "1a.mip_huf_sot"},
-    {2, TT_1A, "1a.mip_jal_sot"},
-    {3, TT_1A, "1a.mip_jik_sot"},
-    {4, TT_1A, "1a.mip_nup_sot"},
-    {5, TT_1A, "1a.mip_rak_sot"},
-    {6, TT_1A, "1a.mip_toef_sot"},
+TestItem[] test_items_l2_1 = {
+    {1, TT_1, "1.mip_huf_sot.wav"},
+    {2, TT_1, "1.mip_jal_sot.wav"},
+    {3, TT_1, "1.mip_jik_sot.wav"},
+    {4, TT_1, "1.mip_nup_sot.wav"},
 };
 
-TestItem[] test_items_l2_1b = {
-    {1, TT_1B, "1b.pem_huf_dos"},
-    {2, TT_1B, "1b.pem_jal_dos"},
-    {3, TT_1B, "1b.pem_jik_dos"},
-    {4, TT_1B, "1b.pem_nup_dos"},
-    {5, TT_1B, "1b.pem_rak_dos"},
-    {6, TT_1B, "1b.pem_toef_dos"},
+TestItem[] test_items_l2_2 = {
+    {1, TT_2, "2.mip_bug_sot.wav"},
+    {2, TT_2, "2.mip_zim_sot.wav"},
+    {3, TT_2, "2.naf_bug_tep.wav"},
+    {4, TT_2, "2.naf_zim_tep.wav"},
 };
 
-TestItem[] test_items_l2_2a = {
-    {1, TT_2A, "2a.mip_bug_sot"},
-    {2, TT_2A, "2a.mip_gak_sot"},
-    {3, TT_2A, "2a.mip_zim_sot"},
-    {4, TT_2A, "2a.naf_bug_tep"},
-    {5, TT_2A, "2a.naf_gak_tep"},
-    {6, TT_2A, "2a.naf_zim_tep"},
+TestItem[] test_items_l2_3 = {
+    {1, TT_3, "3.naf_hog_tep.wav"},
+    {2, TT_3, "3.naf_zuk_tep.wav"},
+    {3, TT_3, "3.wop_hog_bif.wav"},
+    {4, TT_3, "3.wop_zuk_bif.wav"},
 };
 
-TestItem[] test_items_l2_2b = {
-    {1, TT_2B, "2b.mip_dul_sot"},
-    {2, TT_2B, "2b.mip_ves_sot"},
-    {3, TT_2B, "2b.mip_kof_sot"},
-    {4, TT_2B, "2b.naf_dul_tep"},
-    {5, TT_2B, "2b.naf_ves_tep"},
-    {6, TT_2B, "2b.naf_kof_tep"},
+TestItem[] test_items_l2_4 = {
+    {1, TT_4, "4.mip_kof_sot.wav"},
+    {2, TT_4, "4.mip_ves_sot.wav"},
+    {3, TT_4, "4.pem_huf_dos.wav"},
+    {4, TT_4, "4.pem_jik_dos.wav"},
 };
 
-TestItem[] test_items_l2_3a = {
-    {1, TT_3A, "3a.naf_hog_tep"},
-    {2, TT_3A, "3a.naf_nit_tep"},
-    {3, TT_3A, "3a.wop_hog_bif"},
-    {4, TT_3A, "3a.wop_nit_bif"},
-    {5, TT_3A, "3a.bap_hog_lut"},
-    {6, TT_3A, "3a.bap_nit_lut"},
-};
-
-TestItem[] test_items_l2_3b = {
-    {1, TT_3B, "3b.hog_bif_wop"},
-    {2, TT_3B, "3b.nit_lut_bap"},
-    {3, TT_3B, "3b.zuk_tep_naf"},
-    {4, TT_3B, "3b.tep_naf_hog"},
-    {5, TT_3B, "3b.bif_wop_nit"},
-    {6, TT_3B, "3b.lut_bap_zuk"},
+TestItem[] test_items_l2_5 = {
+    {1, TT_5, "5.bif_wop_zuk.wav"},
+    {2, TT_5, "5.hog_bif_wop.wav"},
+    {3, TT_5, "5.tep_naf_hog.wav"},
+    {4, TT_5, "5.zuk_tep_naf.wav"},
 };
 
 /*The test items above are going to be distributed of the lists below*/ 
@@ -523,127 +484,76 @@ pop_test_item(TestItem[] stack) {
     return ret;
 }
 
-void 
-balance_test_a(TestItem[] output)
-{
-    if (chosen_language == LANG_L1) {
-        append_test_item(output, pop_test_item(test_items_l1_1a));
-        append_test_item(output, pop_test_item(test_items_l1_1a));
-        append_test_item(output, pop_test_item(test_items_l1_1b));
-        append_test_item(output, pop_test_item(test_items_l1_1b));
-        
-        append_test_item(output, pop_test_item(test_items_l1_2a));
-        append_test_item(output, pop_test_item(test_items_l1_2a));
-        append_test_item(output, pop_test_item(test_items_l1_2b));
-        append_test_item(output, pop_test_item(test_items_l1_2b));
-        
-        append_test_item(output, pop_test_item(test_items_l1_3a));
-        append_test_item(output, pop_test_item(test_items_l1_3a));
-        append_test_item(output, pop_test_item(test_items_l1_3b));
-        append_test_item(output, pop_test_item(test_items_l1_3b));
-    }
-    else {
-        append_test_item(output, pop_test_item(test_items_l2_1a));
-        append_test_item(output, pop_test_item(test_items_l2_1a));
-        append_test_item(output, pop_test_item(test_items_l2_1b));
-        append_test_item(output, pop_test_item(test_items_l2_1b));
-        
-        append_test_item(output, pop_test_item(test_items_l2_2a));
-        append_test_item(output, pop_test_item(test_items_l2_2a));
-        append_test_item(output, pop_test_item(test_items_l2_2b));
-        append_test_item(output, pop_test_item(test_items_l2_2b));
-        
-        append_test_item(output, pop_test_item(test_items_l2_3a));
-        append_test_item(output, pop_test_item(test_items_l2_3a));
-        append_test_item(output, pop_test_item(test_items_l2_3b));
-        append_test_item(output, pop_test_item(test_items_l2_3b));
-    }
-    output.shuffle(0, 4);
-    output.shuffle(4, 8);
-    output.shuffle(8, 12);
-}
-
-void
-balance_test_b(TestItem[] output)
-{
-    if (chosen_language == LANG_L1) {
-        append_test_item(output, pop_test_item(test_items_l1_2a));
-        append_test_item(output, pop_test_item(test_items_l1_2a));
-        append_test_item(output, pop_test_item(test_items_l1_2b));
-        append_test_item(output, pop_test_item(test_items_l1_2b));
-        
-        append_test_item(output, pop_test_item(test_items_l1_1a));
-        append_test_item(output, pop_test_item(test_items_l1_1a));
-        append_test_item(output, pop_test_item(test_items_l1_1b));
-        append_test_item(output, pop_test_item(test_items_l1_1b));
-        
-        append_test_item(output, pop_test_item(test_items_l1_3a));
-        append_test_item(output, pop_test_item(test_items_l1_3a));
-        append_test_item(output, pop_test_item(test_items_l1_3b));
-        append_test_item(output, pop_test_item(test_items_l1_3b));
-    }
-    else {
-        append_test_item(output, pop_test_item(test_items_l2_2a));
-        append_test_item(output, pop_test_item(test_items_l2_2a));
-        append_test_item(output, pop_test_item(test_items_l2_2b));
-        append_test_item(output, pop_test_item(test_items_l2_2b));
-        
-        append_test_item(output, pop_test_item(test_items_l2_1a));
-        append_test_item(output, pop_test_item(test_items_l2_1a));
-        append_test_item(output, pop_test_item(test_items_l2_1b));
-        append_test_item(output, pop_test_item(test_items_l2_1b));
-        
-        append_test_item(output, pop_test_item(test_items_l2_3a));
-        append_test_item(output, pop_test_item(test_items_l2_3a));
-        append_test_item(output, pop_test_item(test_items_l2_3b));
-        append_test_item(output, pop_test_item(test_items_l2_3b));
-    }
-    output.shuffle(0, 4);
-    output.shuffle(4, 8);
-    output.shuffle(8, 12);
-}
-
 /*
  * prepares the testitems
  */
 void
 prepare_test_stims() {
-    if (chosen_cb_order == CBA) {
-        balance_test_a(test_items1);
-        balance_test_a(test_items2);
-        balance_test_a(test_items3);
+    TestItem[] items_1;
+    TestItem[] items_2;
+    TestItem[] items_3;
+    TestItem[] items_4;
+    TestItem[] items_5;
+
+    if (chosen_language == LANG_L1) {
+        items_1 = test_items_l1_1;
+        items_2 = test_items_l1_2;
+        items_3 = test_items_l1_3;
+        items_4 = test_items_l1_4;
+        items_5 = test_items_l1_5;
     }
-    else if (chosen_cb_order == CBB) {
-        balance_test_b(test_items1);
-        balance_test_b(test_items2);
-        balance_test_b(test_items3);
+    else if (chosen_language == LANG_L2) {
+        items_1 = test_items_l2_1;
+        items_2 = test_items_l2_2;
+        items_3 = test_items_l2_3;
+        items_4 = test_items_l2_4;
+        items_5 = test_items_l2_5;
     }
-    else {
-        print_error("Unexpected counter balance order");
-    }
+
+    items_1.shuffle(0, -1);
+    items_2.shuffle(0, -1);
+    items_3.shuffle(0, -1);
+    items_4.shuffle(0, -1);
+    items_5.shuffle(0, -1);
+
+    // prepare block 1
+    append_test_item(test_items1, pop_test_item(items_1));
+    append_test_item(test_items1, pop_test_item(items_2));
+    append_test_item(test_items1, pop_test_item(items_3));
+    append_test_item(test_items1, pop_test_item(items_4));
+    append_test_item(test_items1, pop_test_item(items_5));
+    
+    test_items1.shuffle(0, -1);
+
+    // prepare block 2
+    append_test_item(test_items2, pop_test_item(items_1));
+    append_test_item(test_items2, pop_test_item(items_2));
+    append_test_item(test_items2, pop_test_item(items_3));
+    append_test_item(test_items2, pop_test_item(items_4));
+    append_test_item(test_items2, pop_test_item(items_5));
+    
+    test_items2.shuffle(0, -1);
+
+    // prepare_block 3 with double the number of items
+    // The first 5 contain 1 of each type and the second 5 too.
+    append_test_item(test_items3, pop_test_item(items_1));
+    append_test_item(test_items3, pop_test_item(items_2));
+    append_test_item(test_items3, pop_test_item(items_3));
+    append_test_item(test_items3, pop_test_item(items_4));
+    append_test_item(test_items3, pop_test_item(items_5));
+    test_items3.shuffle(0, -1);
+    append_test_item(test_items3, pop_test_item(items_1));
+    append_test_item(test_items3, pop_test_item(items_2));
+    append_test_item(test_items3, pop_test_item(items_3));
+    append_test_item(test_items3, pop_test_item(items_4));
+    append_test_item(test_items3, pop_test_item(items_5));
+    test_items3.shuffle(5, -1);
 }
 
 /*
  * Prepares the list for the three test blocks.
  */
 void prepare_test_lists () {
-
-    // shuffle the order of the test items.
-    // TODO shuffle all test items
-
-    test_items_l1_1a.shuffle(0,-1);
-    test_items_l1_1b.shuffle(0,-1);
-    test_items_l1_2a.shuffle(0,-1);
-    test_items_l1_2b.shuffle(0,-1);
-    test_items_l1_3a.shuffle(0,-1);
-    test_items_l1_3b.shuffle(0,-1);
-    
-    test_items_l2_1a.shuffle(0,-1);
-    test_items_l2_1b.shuffle(0,-1);
-    test_items_l2_2a.shuffle(0,-1);
-    test_items_l2_2b.shuffle(0,-1);
-    test_items_l2_3a.shuffle(0,-1);
-    test_items_l2_3b.shuffle(0,-1);
 
     prepare_test_stims();
 }

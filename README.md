@@ -1,4 +1,4 @@
-# Artificial grammar learning 2024
+# Artificial grammar learning 2024 v2
 
 This repository contains two ZEP2 experiments:
 1. The first exepriment is an artificial grammar learning experiment
